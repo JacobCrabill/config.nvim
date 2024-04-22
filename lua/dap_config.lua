@@ -92,7 +92,9 @@ local dap = {
         name = "test",
         type = "lldb",
         request = "launch",
-        program = "build/bin/foo",
+        cwd = '${workspaceFolder}',
+        program = 'build/bin/foo',
+        args = {},
       },
     },
   },
@@ -110,8 +112,7 @@ end
 vim.api.nvim_create_user_command("CreateLocalDAPConfig", create_starter_local_config, {})
 
 -----------------------------------------------------------------------------------------
--- Try loading a local "dap-config.lua" file
--- If no (absolute) path is give, then load from the current working directory
+-- Try loading a local "dap-config.lua" file from the current working directory
 -- A template file can be created with the ':CreateLocalDAPConfig' command above
 -- See the "default" configurations in this file for reference
 -----------------------------------------------------------------------------------------
@@ -161,6 +162,7 @@ local function load_local_config()
   end
 end
 vim.api.nvim_create_user_command("LoadDAPConfig", load_local_config, {})
+vim.api.nvim_create_user_command("ShowDAPConfigs", function() vim.print(dap.configurations) end, {})
 
 -- Get a Telescope list of all DAP configurations, including any which are
 -- locally defined in a 'dap-config.lua' file
@@ -215,7 +217,7 @@ end
 local function start_cmake_dap(prompt_bufnr)
   local cmd = tel_actions_state.get_selected_entry()[1]
   tel_actions.close(prompt_bufnr)
-  dap.run(create_config("Custom CMake exe runner", 'lldb', cmd))
+  dap.run(create_config("Custom CMake binary", 'lldb', cmd))
 end
 
 -- Launch a Telescope picker for binary files at <cwd>/build/bin

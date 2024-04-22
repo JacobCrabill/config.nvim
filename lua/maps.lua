@@ -30,7 +30,7 @@ local function sourceConfig()
   package.loaded['lsp_setup'] = false
   package.loaded['ts_setup'] = false
   package.loaded['misc'] = false
-  vim.cmd('source ' .. nvimrc .. '/init.vim')
+  vim.cmd('source ' .. nvimrc .. '/init.lua')
   print('~~ Neovim config reloaded ~~')
 end
 vim.keymap.set('n', '<A-0>', sourceConfig, {})
