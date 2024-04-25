@@ -1,4 +1,4 @@
-require('nvim-treesitter.configs').setup {
+require('nvim-treesitter.configs').setup({
   ensure_installed = {"c", "cpp", "rust", "toml", "zig", "lua", "vim", "python", "bash", "go", "yaml", "vimdoc"},
   highlight = {
     enable = true,
@@ -38,4 +38,4 @@ require('nvim-treesitter.configs').setup {
       show_help = '?',
     },
   }
-}
+})

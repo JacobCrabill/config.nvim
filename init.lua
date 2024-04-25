@@ -43,12 +43,11 @@ require('lazy').setup({
 
 
   -- ==== Code Completion ==========================================
-  'nvim-lua/completion-nvim',
+  'hrsh7th/nvim-cmp',
   'hrsh7th/cmp-nvim-lsp',
   'hrsh7th/cmp-buffer',
   'hrsh7th/cmp-path',
   'hrsh7th/cmp-cmdline',
-  'hrsh7th/nvim-cmp',
   -- For vsnip users. Do I use this?? idk
   'hrsh7th/vim-vsnip',
   'hrsh7th/cmp-vsnip',
@@ -84,7 +83,7 @@ require('lazy').setup({
 
   -- Fonts, icons, statusbars
   'nvim-lualine/lualine.nvim', -- Fancy status bar. Like Vim-Airline, but better
-  'kyazdani42/nvim-web-devicons', -- Requires a NerdFont to be in use
+  'nvim-tree/nvim-web-devicons', -- Requires a NerdFont to be in use
 
   -- Keep Window, Close Buffer
   'rgarver/Kwbd.vim',
@@ -96,9 +95,16 @@ require('lazy').setup({
   'nvim-neotest/nvim-nio', -- nvim-dap-ui says it's needed
   'nvim-telescope/telescope-dap.nvim',
   -- 'theHamsta/nvim-dap-virtual-text', -- didn't really like it; slows things down a lot
+  'jacobcrabill/nvim-dap-utils',
 
-  -- Open-Windows Tab bar
-  'romgrk/barbar.nvim',
+  { -- Open-Windows Tab bar
+    'romgrk/barbar.nvim',
+
+    dependencies = {
+      'lewis6991/gitsigns.nvim', -- OPTIONAL: for git status
+      'nvim-tree/nvim-web-devicons', -- OPTIONAL: for file icons
+    },
+  },
 
   -- Highlight trailing whitespace
   'ntpeters/vim-better-whitespace',

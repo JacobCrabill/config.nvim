@@ -71,6 +71,9 @@ vim.keymap.set('n', '<leader>jq', [[:%!jq<CR>]], {})
 vim.keymap.set('n', '<A-1>', '<C-w>h', {})
 vim.keymap.set('n', '<A-2>', '<C-w>l', {})
 
+-- Clear the quick-fix buffer
+vim.api.nvim_create_user_command('ClearQuickFix', ':cclose | :cexpr []', {})
+
 -- Telescope -------------------------------------------------------------------
 vim.keymap.set('n', '<C-g>', ':Telescope live_grep<cr>', {})
 vim.keymap.set('n', '<C-p>', ':Telescope find_files<cr>', {})
