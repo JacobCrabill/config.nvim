@@ -133,6 +133,13 @@ require('lazy').setup({
 
   -- In-buffer Markdown rendering
   'jacobcrabill/glow.nvim',
+
+  -- TypeScript (ugh) support (FoxGlove)
+  {
+    "pmizio/typescript-tools.nvim",
+    dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
+    opts = {},
+  },
 })
 
 -- Add our Lua folder to the runtime path, and source its init.lua

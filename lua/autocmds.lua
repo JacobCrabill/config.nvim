@@ -35,7 +35,7 @@ vim.api.nvim_create_autocmd({'BufNewFile', 'BufRead'}, {
   end
 })
 
--- C/C++ auto-formatter (Clang-Format)
+-- Strip trailing whitespace
 vim.api.nvim_create_autocmd('BufWritePre', {
   group = 'AutoFmt',
   callback = function()

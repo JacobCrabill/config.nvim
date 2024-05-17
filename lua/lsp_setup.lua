@@ -98,6 +98,12 @@ lspconfig.lua_ls.setup({
   }
 })
 
+-- (For Foxglove) TypeScript LSP
+-- lspconfig.tsserver.setup({
+--   capabilities = capabilities,
+-- })
+require("typescript-tools").setup({})
+
 ----------------------------------------------------------------
 -- Diagnostics Setup
 ----------------------------------------------------------------
