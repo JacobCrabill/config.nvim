@@ -6,6 +6,7 @@ vim.opt.background = 'dark'
 -- My custom color definitions
 local my_colors = {
   comment_pink = "#ee55a0",
+  comment_pink_2 = "#c69fd6",
   comment_coral = "#d46398",
   purple = "#C792EA",
   purple2 = "#9C82D9",
@@ -66,12 +67,16 @@ require("material").setup({
       filetypes = {}, -- Specify which filetypes get the contrasted (darker) background
   },
 
-  transparent = true,
+  disable = {
+    background = true,
+  },
 
   high_visibility = {
       lighter = false, -- Enable higher contrast text for lighter style
       darker = false, -- Enable higher contrast text for darker style
   },
+
+  lualine_style = "default",
 
   plugins = {
     "nvim-tree",
@@ -81,7 +86,7 @@ require("material").setup({
   },
 
   custom_colors = function(colors)
-    colors.syntax.comments = my_colors.baby_pink
+    colors.syntax.comments = my_colors.comment_pink_2
     colors.editor.line_numbers = my_colors.purple_grey
     colors.editor.cursor = my_colors.lime_green
   end
@@ -91,7 +96,8 @@ require("material").setup({
 vim.g.my_scheme = "material"
 
 if vim.g.my_scheme == "material" then
-  vim.cmd('colorscheme material-palenight')
+  -- vim.cmd('colorscheme material-palenight')
+  vim.cmd('colorscheme material-darker')
 
 elseif vim.g.my_scheme == "onedark" then
   vim.cmd('colorscheme onedark')
