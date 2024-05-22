@@ -43,6 +43,12 @@ dap.listeners.before.launch.dapui_config = dapui.open
 dap.listeners.before.event_terminated.dapui_config = dapui.close
 dap.listeners.before.event_exited.dapui_config = dapui.close
 
+dap.adapters.gdb = {
+  type = "executable",
+  command = gdb_bin,
+  args = { "-i", "dap", "-iex", "set auto-load safe-path " .. vim.fn.getcwd() },
+  name = 'gdb'
+}
 --------------------------------------------------------------------------------
 -- Helper Functions
 --------------------------------------------------------------------------------

@@ -80,6 +80,8 @@ require('lazy').setup({
   'drewtempelmeyer/palenight.vim',
   'folke/tokyonight.nvim',
   'rmehri01/onenord.nvim',
+  'scottmckendry/cyberdream.nvim',
+  'rebelot/kanagawa.nvim',
 
   -- Fonts, icons, statusbars
   'nvim-lualine/lualine.nvim', -- Fancy status bar. Like Vim-Airline, but better

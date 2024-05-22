@@ -1,4 +1,5 @@
 -- Enable transparent background (Or rather, use terminal's background)
+-- Equivalent to: hi Normal guibg=none ctermbg=none
 vim.api.nvim_set_hl(0, 'Normal', { bg=0 })
 vim.api.nvim_set_hl(0, 'NonText', { bg=0 })
 vim.opt.background = 'dark'
@@ -24,7 +25,7 @@ require('onedark').setup({
   transparent = true,
 
   -- toggle theme style ---
-  toggle_style_key = "<leader>ts",
+  -- toggle_style_key = "<leader>ts",
   -- Available styles: dark(er), cool, deep, warm(er)
   toggle_style_list = {'dark', 'darker', 'cool', 'warm'},
 
@@ -90,6 +91,25 @@ require("material").setup({
     colors.editor.line_numbers = my_colors.purple_grey
     colors.editor.cursor = my_colors.lime_green
   end
+})
+
+-- Nightfox Setup
+require('nightfox').setup({
+  options = {
+    -- Compiled file's destination location
+    compile_path = vim.fn.stdpath("cache") .. "/nightfox",
+    compile_file_suffix = "_compiled", -- Compiled file suffix
+    transparent = true,     -- Disable setting background
+    dim_inactive = true,    -- Non focused panes set to alternative background
+    -- styles = {               -- Style to be applied to different syntax groups
+    --   comments = "italic",     -- Value is any valid attr-list value `:help attr-list`
+    -- },
+  },
+  -- palettes = {
+  --   all = {
+  --     comment = my_colors.comment_pink,
+  --   },
+  -- },
 })
 
 -- Colorscheme Selection
