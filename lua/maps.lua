@@ -32,7 +32,7 @@ local function sourceConfig()
   package.loaded['ts_setup'] = false
   package.loaded['telescope_setup'] = false
   package.loaded['misc'] = false
-  vim.cmd('source ' .. nvimrc .. '/init.lua')
+  vim.cmd('source ' .. nvimrc .. '/lua/init.lua')
   print('~~ Neovim config reloaded ~~')
 end
 vim.keymap.set('n', '<A-0>', sourceConfig, {})
@@ -81,7 +81,7 @@ vim.keymap.set('n', '<C-g>', ':Telescope live_grep<cr>', {})
 vim.keymap.set('n', '<C-p>', ':Telescope find_files<cr>', {})
 vim.keymap.set('n', '<C-h>', ':Telescope grep_string<cr>', {})
 vim.keymap.set('n', '<C-f>', ':Telescope resume<cr>', {}) -- Open last search
-vim.keymap.set('n', '<leader>ts', ':Telescope colorschemes<cr>', {})
+vim.keymap.set('n', '<leader>ts', ':Telescope colorscheme<cr>', {})
 --------------------------------------------------------------------------------
 
 -- BarBar ----------------------------------------------------------------------

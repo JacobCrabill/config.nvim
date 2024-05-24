@@ -87,7 +87,7 @@ require("material").setup({
   },
 
   custom_colors = function(colors)
-    colors.syntax.comments = my_colors.comment_pink_2
+    colors.syntax.comments = '#F9A990'
     colors.editor.line_numbers = my_colors.purple_grey
     colors.editor.cursor = my_colors.lime_green
   end
@@ -96,15 +96,11 @@ require("material").setup({
 -- Nightfox Setup
 require('nightfox').setup({
   options = {
-    -- Compiled file's destination location
-    compile_path = vim.fn.stdpath("cache") .. "/nightfox",
-    compile_file_suffix = "_compiled", -- Compiled file suffix
-    transparent = true,     -- Disable setting background
-    dim_inactive = true,    -- Non focused panes set to alternative background
-    -- styles = {               -- Style to be applied to different syntax groups
-    --   comments = "italic",     -- Value is any valid attr-list value `:help attr-list`
-    -- },
+    transparent = true,
   },
+  -- styles = {               -- Style to be applied to different syntax groups
+  --   comments = "italic",   -- Value is any valid attr-list value `:help attr-list`
+  -- },
   -- palettes = {
   --   all = {
   --     comment = my_colors.comment_pink,
@@ -123,7 +119,7 @@ elseif vim.g.my_scheme == "onedark" then
   vim.cmd('colorscheme onedark')
 
 elseif vim.g.my_scheme == "nightfox" then
-  vim.cmd('colorscheme carbonfox')
+  vim.cmd('colorscheme duskfox')
 
 elseif vim.g.my_scheme == "palenight" then
   vim.cmd('colorscheme palenight')
