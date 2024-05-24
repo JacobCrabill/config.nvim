@@ -52,6 +52,7 @@ require('onedark').setup({
 -- Tokyo Night style
 require("tokyonight").setup({
   style = "storm", -- storm, moon, night, light
+  transparent = true,
   on_colors = function(colors)
     colors.comment = my_colors.comment_coral
   end

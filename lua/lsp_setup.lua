@@ -39,6 +39,10 @@ navic.setup {
     separator = " > ",
     depth_limit = 0,
     depth_limit_indicator = "..",
+    lsp = {
+      auto_attach = true,
+      preference = { 'clangd', 'zls' },
+    },
 }
 
 ----------------------------------------------------------------
@@ -48,7 +52,9 @@ navic.setup {
 -- C++ Language Server (clangd)
 local clangd_on_attach = function(client, bufnr)
     require('completion').on_attach()
-    navic.attach(client, bufnr)
+    if client.server_capabilities.documentSymbolProvider then
+        navic.attach(client, bufnr)
+    end
 end
 lspconfig.clangd.setup {
   capabilities = capabilities,
