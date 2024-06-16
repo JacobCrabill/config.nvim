@@ -43,12 +43,6 @@ dap.listeners.before.launch.dapui_config = dapui.open
 dap.listeners.before.event_terminated.dapui_config = dapui.close
 dap.listeners.before.event_exited.dapui_config = dapui.close
 
-dap.adapters.gdb = {
-  type = "executable",
-  command = gdb_bin,
-  args = { "-i", "dap", "-iex", "set auto-load safe-path " .. vim.fn.getcwd() },
-  name = 'gdb'
-}
 --------------------------------------------------------------------------------
 -- Helper Functions
 --------------------------------------------------------------------------------
@@ -106,20 +100,7 @@ vim.fn.sign_define('DapBreakpoint', {text='🛑', texthl='', linehl='', numhl=''
 -- Setup Adapters (Debuggers which support the Debug Adapter Protocol)
 --------------------------------------------------------------------------
 
--- Setup LLDB
-dap.adapters.lldb = {
-  type = 'executable',
-  command = lldb_bin,
-  name = 'lldb',
-}
-
--- Setup GDB
-dap.adapters.gdb = {
-  type = "executable",
-  command = gdb_bin,
-  args = { "-i", "dap", "-iex", "set auto-load safe-path " .. vim.fn.getcwd() },
-  name = 'gdb'
-}
+-- LLDB and GDB are already setup in nvim-dap-utils
 
 --------------------------------------------------------------------------
 -- Configurations
