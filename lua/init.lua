@@ -19,11 +19,11 @@ require('cmp_setup')
 -- Lualine (statusline)
 require('lualine_setup')
 
--- Telescope
-require('telescope_setup')
-
 -- Language Setup (LSPs)
 require('lsp_setup')
+
+-- Telescope
+require('telescope_setup')
 
 -- TreeSitter
 require('ts_setup')
