@@ -4,6 +4,10 @@ vim.api.nvim_set_hl(0, 'Normal', { bg=0 })
 vim.api.nvim_set_hl(0, 'NonText', { bg=0 })
 vim.opt.background = 'dark'
 
+-- Colorscheme Selection
+vim.g.my_scheme = "material"     -- Option for dark mode (default)
+vim.g.my_light_scheme = "dayfox" -- Option for light mode
+
 -- My custom color definitions
 local my_colors = {
   comment_pink = "#ee55a0",
@@ -97,7 +101,7 @@ require("material").setup({
 -- Nightfox Setup
 require('nightfox').setup({
   options = {
-    transparent = true,
+    transparent = false,
   },
   -- styles = {               -- Style to be applied to different syntax groups
   --   comments = "italic",   -- Value is any valid attr-list value `:help attr-list`
@@ -108,9 +112,6 @@ require('nightfox').setup({
   --   },
   -- },
 })
-
--- Colorscheme Selection
-vim.g.my_scheme = "material"
 
 if vim.g.my_scheme == "material" then
   -- vim.cmd('colorscheme material-palenight')
@@ -136,3 +137,45 @@ elseif vim.g.my_scheme == "tokyonight" then
 end
 
 -- vim.o.winbar = "%{%v:lua.require'nvim-navic'.get_location()%}"
+
+--------------------------------------------------------------------------
+-- Toggle Light / Dark Themes
+--------------------------------------------------------------------------
+
+vim.g.bg_is_dark = true
+
+-- Set colorscheme to the Outdoors / Light theme
+function SetBackgroundLight()
+  -- Set to Light
+  vim.print("Toggle to Light")
+  vim.api.nvim_set_hl(0, 'Normal', { bg="White", fg="Black" })
+  vim.api.nvim_set_hl(0, 'NonText', { bg="White", fg="Black" })
+  vim.opt.background = 'light'
+  vim.cmd('colorscheme ' .. vim.g.my_light_scheme)
+  vim.g.bg_is_dark = false
+end
+
+-- Set colorscheme to the Normal / Dark theme
+function SetBackgroundDark()
+    -- Set to Dark
+    vim.print("Toggle to Dark")
+    vim.api.nvim_set_hl(0, 'Normal', { bg=0 })
+    vim.api.nvim_set_hl(0, 'NonText', { bg=0 })
+    vim.opt.background = 'dark'
+    vim.cmd('colorscheme ' .. vim.g.my_scheme)
+    vim.g.bg_is_dark = true
+end
+
+-- Toggle between Light and Dark
+function ToggleBackground()
+  if vim.g.bg_is_dark == true then
+    SetBackgroundLight()
+  else
+    SetBackgroundDark()
+  end
+end
+
+vim.api.nvim_create_user_command('ToggleBackground', ToggleBackground, {})
+vim.api.nvim_create_user_command('SetBackgroundDark', SetBackgroundDark, {})
+vim.api.nvim_create_user_command('SetBackgroundLight', SetBackgroundLight, {})
+

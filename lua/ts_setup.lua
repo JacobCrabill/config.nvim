@@ -1,5 +1,9 @@
 require('nvim-treesitter.configs').setup({
-  ensure_installed = {"c", "cpp", "markdown", "rust", "toml", "json", "zig", "lua", "vim", "python", "bash", "go", "yaml", "vimdoc", "typescript"},
+  ensure_installed = {
+    "c", "cpp", "zig", "lua", "python", "bash", "vim", "vimdoc",
+    "markdown", "html", "css", "json", "toml", "yaml",
+    "rust", "go", "typescript", "javascript",
+  },
   highlight = {
     enable = true,
     custom_captures = {
