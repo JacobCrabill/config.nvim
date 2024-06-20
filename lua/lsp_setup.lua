@@ -51,6 +51,10 @@ navic.setup {
 
 -- C++ Language Server (clangd)
 local clangd_on_attach = function(client, bufnr)
+    vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+    -- vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, nil)
+    -- vim.keymap.set('n', 'gd', vim.lsp.buf.definition, nil)
+    -- vim.keymap.set('n', 'gr', require('telescope.builtin').lsp_references, nil)
     require('completion').on_attach()
     if client.server_capabilities.documentSymbolProvider then
         navic.attach(client, bufnr)
@@ -130,3 +134,6 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] =
         -- Diable showing of diagnostics in insert mode
         update_in_insert = false
     })
+
+-- Open the LSP hover menu showing documentation of the symbol under the cursor
+vim.keymap.set('n', 'K', vim.lsp.buf.hover, nil)
