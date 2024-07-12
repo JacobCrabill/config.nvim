@@ -22,7 +22,7 @@ require('telescope').setup{
 }
 require('telescope').load_extension('fzf')
 
--- [G]oto[R]eferences
+-- [g]oto[r]eferences
 vim.keymap.set('n', 'gr', function() require('telescope.builtin').lsp_references() end, { noremap = true, silent = true })
--- [G]oto[D]efinition
+-- [g]oto[d]efinition
 vim.keymap.set('n', 'gd', function() require('telescope.builtin').lsp_definitions() end, { noremap = true, silent = true })

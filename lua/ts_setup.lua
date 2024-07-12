@@ -1,8 +1,8 @@
 require('nvim-treesitter.configs').setup({
   ensure_installed = {
     "c", "cpp", "zig", "lua", "python", "bash", "vim", "vimdoc",
-    "markdown", "html", "css", "json", "toml", "yaml",
-    "rust", "go", "typescript", "javascript",
+    "cmake", "markdown", "html", "css", "json", "toml", "yaml",
+    "rust", "go", "typescript", "javascript", "cue",
   },
   highlight = {
     enable = true,

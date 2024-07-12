@@ -19,8 +19,8 @@ local function ANSIEscapeLogFile()
   vim.cmd([[
   :AnsiEsc
   :StripWhitespace
-  silent :execute '! dos2unix -f %' | silent edit! %
-  silent :%s/^M//g
+  silent! :execute '! dos2unix -f %' | silent edit! %
+  silent! :execute '%s/\r//g'
   ]])
 end
 vim.api.nvim_create_user_command('ANSILog', ANSIEscapeLogFile, {})
