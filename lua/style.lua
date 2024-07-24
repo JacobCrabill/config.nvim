@@ -5,7 +5,7 @@ vim.api.nvim_set_hl(0, 'NonText', { bg=0 })
 vim.opt.background = 'dark'
 
 -- Colorscheme Selection
-vim.g.my_scheme = "material"     -- Option for dark mode (default)
+vim.g.my_scheme = "tokyonight"     -- Option for dark mode (default)
 vim.g.my_light_scheme = "dayfox" -- Option for light mode
 
 -- My custom color definitions
@@ -92,7 +92,7 @@ require("material").setup({
   },
 
   custom_colors = function(colors)
-    colors.syntax.comments = '#F9A990'
+    colors.syntax.comments = "#EA9892" -- "#FF7878"
     colors.editor.line_numbers = my_colors.purple_grey
     colors.editor.cursor = my_colors.lime_green
   end

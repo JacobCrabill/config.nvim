@@ -10,6 +10,7 @@ vim.opt.rtp:prepend(lazypath)
 vim.g.have_nerd_font = true
 
 require('lazy').setup({
+  'norcalli/nvim-terminal.lua',
   'SmiteshP/nvim-navic',
   'sindrets/diffview.nvim',
   'voldikss/vim-floaterm',  -- Floating terminal buffers
@@ -134,7 +135,7 @@ require('lazy').setup({
   'segeljakt/vim-silicon',
 
   -- In-buffer Markdown rendering
-  'jacobcrabill/glow.nvim',
+  'jacobcrabill/zigdown',
 
   -- TypeScript (ugh) support (FoxGlove)
   {

@@ -50,14 +50,13 @@ vim.keymap.set('v', 'p', [["_dP]], { noremap = true })
 
 -- Exit insert mode with my right hand w/o leaving home row
 vim.keymap.set('i', ',,', '<ESC>', {})
-vim.keymap.set('n', ',,', ':<c-u><C-r>=b:VM_Selection.Vars.noh<CR>call vm#reset()<cr>', { noremap=true, silent=true }) -- not perfect; not sure what's missing
 
 -- Map <C-L> (redraw screen) to also turn off search highlights
 -- until the next search
 vim.keymap.set('n', '<C-L>', [[:nohl<CR><C-L>]], { noremap = true })
 
 -- Glow (side-pane Markdown rendering)
-vim.keymap.set('n', '<A-g>', [[:Glow<CR>]], {})
+vim.keymap.set('n', '<A-g>', [[:Zigdown<CR>]], {})
 
 -- Keep window, close buffer
 vim.keymap.set('n', '<C-d>', [[:Kwbd<CR>]], {})
