@@ -133,6 +133,8 @@ require('lazy').setup({
   -- Prerequisites: See https://crates.io/crates/silicon
   --   cargo install silicon
   'segeljakt/vim-silicon',
+  -- Colorize hex and RGB color codes
+  'norcalli/nvim-colorizer.lua',
 
   -- In-buffer Markdown rendering
   'jacobcrabill/zigdown',
