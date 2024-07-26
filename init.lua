@@ -73,12 +73,12 @@ require('lazy').setup({
 
   -- ==== Style Customization ======================================
   -- Color Schemes
-  -- 'sainnhe/forest-night'
-  -- 'catppuccin/nvim' { 'as': 'catppuccin' },
-  -- 'drewtempelmeyer/palenight.vim',
-  -- 'rmehri01/onenord.nvim',
-  -- 'scottmckendry/cyberdream.nvim',
-  -- 'rebelot/kanagawa.nvim',
+  'sainnhe/forest-night',
+  { 'catppuccin/nvim', name = 'catppuccin' },
+  'drewtempelmeyer/palenight.vim',
+  'rmehri01/onenord.nvim',
+  'scottmckendry/cyberdream.nvim',
+  'rebelot/kanagawa.nvim',
   'EdenEast/nightfox.nvim',
   'marko-cerovac/material.nvim',
   'folke/tokyonight.nvim',
@@ -130,6 +130,13 @@ require('lazy').setup({
   'folke/neodev.nvim' ,-- Lua & NeoVim API LSP support
   'Decodetalkers/neocmakelsp', -- CMake LSP
 
+  -- TypeScript (ugh) support (FoxGlove)
+  {
+    "pmizio/typescript-tools.nvim",
+    dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
+    opts = {},
+  },
+
   -- ==== Misc Tools ==============================================
   -- Render code to a PNG image
   -- Prerequisites: See https://crates.io/crates/silicon
@@ -140,16 +147,9 @@ require('lazy').setup({
 
   -- In-buffer Markdown rendering
   'jacobcrabill/zigdown',
-
-  -- TypeScript (ugh) support (FoxGlove)
-  {
-    "pmizio/typescript-tools.nvim",
-    dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
-    opts = {},
-  },
 })
 
 -- Add our Lua folder to the runtime path, and source its init.lua
 local nvimrc = vim.fn.stdpath('config')
-vim.opt.rtp:append(nvimrc .. 'lua')
+vim.opt.rtp:append(nvimrc .. '/lua')
 require('init')

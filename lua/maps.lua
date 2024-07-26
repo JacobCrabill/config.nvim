@@ -32,6 +32,8 @@ local function sourceConfig()
   package.loaded['ts_setup'] = false
   package.loaded['telescope_setup'] = false
   package.loaded['misc'] = false
+  package.loaded['zigdown_lua'] = false
+  package.loaded['zigdown'] = false
   vim.cmd('source ' .. nvimrc .. '/lua/init.lua')
   print('~~ Neovim config reloaded ~~')
 end
@@ -55,8 +57,8 @@ vim.keymap.set('i', ',,', '<ESC>', {})
 -- until the next search
 vim.keymap.set('n', '<C-L>', [[:nohl<CR><C-L>]], { noremap = true })
 
--- Glow (side-pane Markdown rendering)
-vim.keymap.set('n', '<A-g>', [[:Zigdown<CR>]], {})
+-- Zigdown (Render Markdown in side pane)
+vim.keymap.set('n', '<A-g>', [[:Zigdown<CR>]], { noremap = true })
 
 -- Keep window, close buffer
 vim.keymap.set('n', '<C-d>', [[:Kwbd<CR>]], {})

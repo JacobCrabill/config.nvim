@@ -25,7 +25,13 @@ local function ANSIEscapeLogFile()
 end
 vim.api.nvim_create_user_command('ANSILog', ANSIEscapeLogFile, {})
 
+-- Colorizer Setup
 -- Color the background of any hex or RGB color codes
-local color_fts = { '*' }
-local color_opts = { css = { hsl_fn = true, rgb_fn = true, } }
-require('colorizer').setup(color_fts, color_opts)
+local color_files = { '*' }
+local colorizer_opts = {
+    RRGGBBAA = true,
+    -- Enable parsing rgb(...) and hsl(...) functions in css and html
+    css = { rgb_fn = true, hsl_fn = true },
+    html = { rgb_fn = true, hsl_fn = true },
+}
+require('colorizer').setup(color_files, colorizer_opts)

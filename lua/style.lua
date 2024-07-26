@@ -5,7 +5,7 @@ vim.api.nvim_set_hl(0, 'NonText', { bg=0 })
 vim.opt.background = 'dark'
 
 -- Colorscheme Selection
-vim.g.my_scheme = "onedark_vivid"     -- Option for dark mode (default)
+vim.g.my_scheme = "onedark"     -- Option for dark mode (default)
 vim.g.my_light_scheme = "dayfox" -- Option for light mode
 vim.g.transparent = false
 
@@ -120,7 +120,7 @@ local function setup_onedark()
       -- LSP token types
       ["@lsp.type.comment"] = { fg = '$comment_pink' },
       -- BarBar tabs
-      BufferCurrent = { fg = '$lime_green', bg = '$comment_pink' },
+      BufferCurrent = { fg = '$mint', bg = '$purple2' },
     }
   })
   -- require('onedark').load()
@@ -128,11 +128,13 @@ end
 
 -- OneDark Pro Color Scheme config (onedarkpro.nvim)
 local function setup_onedarkpro()
-  require('onedarkpro').setup({
+  local onedarkpro = require('onedarkpro')
+  onedarkpro.clean()
+  onedarkpro.setup({
     colors = my_colors,
     highlights = {
       Comment = { fg = "${comment_coral}" },
-      BufferCurrent = { fg = '${comment_pink}', bg = "${mint}" }, -- BarBar's active tab
+      BufferCurrent = { fg = '${mint}', bg = "${purple2}" }, -- BarBar's active tab
     }
   })
 end
