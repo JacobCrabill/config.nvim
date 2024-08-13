@@ -26,4 +26,6 @@ end
 vim.api.nvim_create_user_command('ANSILog', ANSIEscapeLogFile, {})
 
 -- Color the background of any hex or RGB color codes
-require 'colorizer'.setup({ '*' }, { css = { hsl_fn = true, rgb_fn = true, } })
+local color_fts = { '*' }
+local color_opts = { css = { hsl_fn = true, rgb_fn = true, } }
+require('colorizer').setup(color_fts, color_opts)

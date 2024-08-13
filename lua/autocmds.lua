@@ -21,7 +21,7 @@ vim.api.nvim_create_autocmd('BufReadpost', {
 
 -- Disable trailing whitespace highligting for Markdown previews
 vim.api.nvim_create_autocmd({'BufNewFile', 'BufRead'}, {
-  pattern = { '*.mdp' },
+  pattern = { '*.mdp', 'zd-render' },
   group = 'OnOpen',
   callback = "DisableWhitespace",
 })

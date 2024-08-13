@@ -5,18 +5,20 @@ require('telescope').setup{
       prompt_position = 'top',
     },
   },
-  -- pickers = {
-  --   find_files = {
-  --     no_ignore = true, -- ignore .gitignore
-  --   }
-  -- },
+  pickers = {
+    find_files = {
+      file_ignore_patterns = { "*js" }, -- Minified JS files cause 5+ seconds of lag
+      -- no_ignore = true, -- ignore .gitignore
+    }
+  },
   extensions = {
     fzf = {
-      fuzzy = true,                    -- false will only do exact matching
-      override_generic_sorter = true,  -- override the generic sorter
-      override_file_sorter = true,     -- override the file sorter
-      case_mode = "smart_case",        -- or "ignore_case" or "respect_case"
-                                       -- the default case_mode is "smart_case"
+      fuzzy = true,                     -- false will only do exact matching
+      override_generic_sorter = true,   -- override the generic sorter
+      override_file_sorter = true,      -- override the file sorter
+      case_mode = "smart_case",         -- or "ignore_case" or "respect_case"
+                                        -- the default case_mode is "smart_case"
+      file_ignore_patterns = { "*js" }, -- Minified JS files cause 5+ seconds of lag
     }
   }
 }

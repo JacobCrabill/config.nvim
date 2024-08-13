@@ -5,7 +5,7 @@ vim.api.nvim_set_hl(0, 'NonText', { bg=0 })
 vim.opt.background = 'dark'
 
 -- Colorscheme Selection
-vim.g.my_scheme = "tokyonight"     -- Option for dark mode (default)
+vim.g.my_scheme = "material-palenight"     -- Option for dark mode (default)
 vim.g.my_light_scheme = "dayfox" -- Option for light mode
 
 -- My custom color definitions
@@ -134,6 +134,8 @@ elseif vim.g.my_scheme == "palenight" then
 elseif vim.g.my_scheme == "tokyonight" then
   vim.cmd('colorscheme tokyonight')
 
+else
+  vim.cmd('colorscheme ' .. vim.g.my_scheme)
 end
 
 -- vim.o.winbar = "%{%v:lua.require'nvim-navic'.get_location()%}"
