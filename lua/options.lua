@@ -35,3 +35,7 @@ vim.opt.scrolloff = 10
 -- Decrease mapped sequence wait time
 -- Displays which-key popup sooner
 vim.opt.timeoutlen = 400
+
+-- Enable spell checking
+vim.opt.spelllang = 'en_us'
+vim.opt.spell = true

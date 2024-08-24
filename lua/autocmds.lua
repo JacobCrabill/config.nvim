@@ -19,14 +19,14 @@ vim.api.nvim_create_autocmd('BufReadpost', {
   end
 })
 
--- Disable trailing whitespace highligting for Markdown previews
+-- Disable trailing whitespace highlighting for Markdown previews
 vim.api.nvim_create_autocmd({'BufNewFile', 'BufRead'}, {
   pattern = { '*.mdp', 'zd-render' },
   group = 'OnOpen',
   callback = "DisableWhitespace",
 })
 
--- enable syntax highligting for EOSLang files
+-- enable syntax highlighting for EOSLang files
 vim.api.nvim_create_autocmd({'BufNewFile', 'BufRead'}, {
   pattern = { '*.eos' },
   group = 'OnOpen',

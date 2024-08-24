@@ -4,6 +4,7 @@ require('neodev').setup({})
 -- Setup lspconfig
 local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
 local lspconfig = require('lspconfig')
+local lsp_configs = require("lspconfig.configs")
 
 local navic = require("nvim-navic")
 navic.setup {
@@ -49,38 +50,32 @@ navic.setup {
 -- Replace <YOUR_LSP_SERVER> with each lsp server you've enabled
 ----------------------------------------------------------------
 
--- C++ Language Server (clangd)
-local clangd_on_attach = function(client, bufnr)
-    vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
-    -- vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, nil)
-    -- vim.keymap.set('n', 'gd', vim.lsp.buf.definition, nil)
-    -- vim.keymap.set('n', 'gr', require('telescope.builtin').lsp_references, nil)
-    require('completion').on_attach()
-    if client.server_capabilities.documentSymbolProvider then
-        navic.attach(client, bufnr)
-    end
+-- Generic Language Server on_attach function
+local lsp_on_attach = function(client, bufnr)
+  vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+  vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, nil)
+  vim.keymap.set('n', 'gd', vim.lsp.buf.definition, nil)
+  vim.keymap.set('n', 'gr', require('telescope.builtin').lsp_references, nil)
+  require('completion').on_attach()
+  if client.server_capabilities.documentSymbolProvider then
+      navic.attach(client, bufnr)
+  end
+  -- Optional: Turn off semantic tokens overriding our current highlighting
+  -- See: https://github.com/neovim/neovim/pull/21100
+  -- client.server_capabilities.semanticTokensProvider = nil
 end
+
+--- C++ Language Server (clangd)
 lspconfig.clangd.setup {
   capabilities = capabilities,
   cmd = { "clangd-12", "--background-index", "--header-insertion=never"},
-  on_attach = clangd_on_attach,
+  on_attach = lsp_on_attach,
 }
 
 -- Zig Language Server (ZLS)
-local zls_on_attach = function(client, bufnr)
-    vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
-    vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, nil)
-    vim.keymap.set('n', 'gd', vim.lsp.buf.definition, nil)
-    vim.keymap.set('n', 'gr', require('telescope.builtin').lsp_references, nil)
-    -- Turn off semantic tokens overriding our current highlighting
-    -- See: https://github.com/neovim/neovim/pull/21100
-    -- client.server_capabilities.semanticTokensProvider = nil
-    require('completion').on_attach()
-    navic.attach(client, bufnr)
-end
 lspconfig.zls.setup {
   capabilities = capabilities,
-  on_attach = zls_on_attach,
+  on_attach = lsp_on_attach,
 }
 
 -- Rust language support setup
@@ -113,6 +108,31 @@ lspconfig.lua_ls.setup({
 --   capabilities = capabilities,
 -- })
 require("typescript-tools").setup({})
+
+-- CMake LSP Setup
+if not lsp_configs.neocmake then
+    lsp_configs.neocmake = {
+        default_config = {
+            cmd = { "neocmakelsp", "--stdio" },
+            filetypes = { "cmake" },
+            root_dir = function(fname)
+                return lspconfig.util.find_git_ancestor(fname)
+            end,
+            single_file_support = true,-- suggested
+            on_attach = lsp_on_attach, -- Not actually clangd specific, so should work
+            init_options = {
+                format = {
+                    enable = false
+                },
+                lint = {
+                    enable = true
+                },
+                scan_cmake_in_package = true -- default is true
+            }
+        }
+    }
+    lspconfig.neocmake.setup({})
+end
 
 ----------------------------------------------------------------
 -- Diagnostics Setup

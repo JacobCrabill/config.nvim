@@ -5,8 +5,9 @@ vim.api.nvim_set_hl(0, 'NonText', { bg=0 })
 vim.opt.background = 'dark'
 
 -- Colorscheme Selection
-vim.g.my_scheme = "material-palenight"     -- Option for dark mode (default)
+vim.g.my_scheme = "onedark"     -- Option for dark mode (default)
 vim.g.my_light_scheme = "dayfox" -- Option for light mode
+vim.g.transparent = false
 
 -- My custom color definitions
 local my_colors = {
@@ -26,7 +27,7 @@ local my_colors = {
 -- OneDark Color Scheme config
 require('onedark').setup({
   style = 'dark',
-  transparent = true,
+  transparent = vim.g.transparent,
 
   -- toggle theme style ---
   -- toggle_style_key = "<leader>ts",
@@ -56,7 +57,7 @@ require('onedark').setup({
 -- Tokyo Night style
 require("tokyonight").setup({
   style = "storm", -- storm, moon, night, light
-  transparent = true,
+  transparent = vim.g.transparent,
   on_colors = function(colors)
     colors.comment = my_colors.comment_coral
   end
@@ -101,7 +102,7 @@ require("material").setup({
 -- Nightfox Setup
 require('nightfox').setup({
   options = {
-    transparent = false,
+    transparent = vim.g.transparent,
   },
   -- styles = {               -- Style to be applied to different syntax groups
   --   comments = "italic",   -- Value is any valid attr-list value `:help attr-list`

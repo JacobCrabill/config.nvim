@@ -6,10 +6,15 @@ require('telescope').setup{
     },
   },
   pickers = {
-    find_files = {
-      file_ignore_patterns = { "*js" }, -- Minified JS files cause 5+ seconds of lag
+    live_grep = {
+      file_ignore_patterns = { '%.html', '%.js' }, -- Minified JS files cause 5+ seconds of lag
       -- no_ignore = true, -- ignore .gitignore
     }
+  },
+  preview = {
+    filesize_limit = .5, -- size limit in MB
+    timeout = 250,       -- Timeout in ms
+    treesitter = false,  -- Don't uses treesitter in preview pane (speed up preview)
   },
   extensions = {
     fzf = {
@@ -18,7 +23,7 @@ require('telescope').setup{
       override_file_sorter = true,      -- override the file sorter
       case_mode = "smart_case",         -- or "ignore_case" or "respect_case"
                                         -- the default case_mode is "smart_case"
-      file_ignore_patterns = { "*js" }, -- Minified JS files cause 5+ seconds of lag
+      file_ignore_patterns = { "%.html", "%.js" }, -- Minified JS files cause 5+ seconds of lag
     }
   }
 }

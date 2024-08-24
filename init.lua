@@ -127,6 +127,7 @@ require('lazy').setup({
   'jjo/vim-cue',
   'fladson/vim-kitty', -- Kitty config syntax highlighting
   'folke/neodev.nvim' ,-- Lua & NeoVim API LSP support
+  'Decodetalkers/neocmakelsp', -- CMake LSP
 
   -- ==== Misc Tools ==============================================
   -- Render code to a PNG image
