@@ -74,15 +74,16 @@ require('lazy').setup({
   -- ==== Style Customization ======================================
   -- Color Schemes
   -- 'sainnhe/forest-night'
+  -- 'catppuccin/nvim' { 'as': 'catppuccin' },
+  -- 'drewtempelmeyer/palenight.vim',
+  -- 'rmehri01/onenord.nvim',
+  -- 'scottmckendry/cyberdream.nvim',
+  -- 'rebelot/kanagawa.nvim',
   'EdenEast/nightfox.nvim',
-  'navarasu/onedark.nvim',
   'marko-cerovac/material.nvim',
-  'catppuccin/nvim', -- { 'as': 'catppuccin' },
-  'drewtempelmeyer/palenight.vim',
   'folke/tokyonight.nvim',
-  'rmehri01/onenord.nvim',
-  'scottmckendry/cyberdream.nvim',
-  'rebelot/kanagawa.nvim',
+  -- 'navarasu/onedark.nvim',
+  'olimorris/onedarkpro.nvim',
 
   -- Fonts, icons, statusbars
   'nvim-lualine/lualine.nvim', -- Fancy status bar. Like Vim-Airline, but better

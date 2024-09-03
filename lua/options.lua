@@ -38,4 +38,4 @@ vim.opt.timeoutlen = 400
 
 -- Enable spell checking
 vim.opt.spelllang = 'en_us'
-vim.opt.spell = true
+-- vim.opt.spell = true
