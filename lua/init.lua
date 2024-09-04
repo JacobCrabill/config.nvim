@@ -31,11 +31,11 @@ require('ts_setup')
 -- DAP (Debug Adapter Protocol)
 require('dap_config')
 
--- Colorschemes and general style config
-require('style')
-
 -- Other odds and ends
 require('misc')
 
 -- Gitsigns: Git status tracking symbols
 -- require('gitsigns_setup')
+
+-- Colorschemes and general style config
+require('style')

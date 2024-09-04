@@ -5,7 +5,7 @@ vim.api.nvim_set_hl(0, 'NonText', { bg=0 })
 vim.opt.background = 'dark'
 
 -- Colorscheme Selection
-vim.g.my_scheme = "onedark"     -- Option for dark mode (default)
+vim.g.my_scheme = "onedark_vivid"     -- Option for dark mode (default)
 vim.g.my_light_scheme = "dayfox" -- Option for light mode
 vim.g.transparent = false
 
@@ -22,6 +22,7 @@ local my_colors = {
   lime = "#BFD982",
   baby_pink = "#D96293",
   lime_green = "#99EE00",
+  mint = "#61ff81",
 }
 
 -- Tokyo Night style
@@ -90,7 +91,7 @@ local function setup_nightfox()
   })
 end
 
--- OneDark Color Scheme config
+-- OneDark Color Scheme config (onedark.nvim)
 local function setup_onedark()
   require('onedark').setup({
     style = 'dark',
@@ -118,10 +119,22 @@ local function setup_onedark()
       Comment = {fg = '$comment_pink'},
       -- LSP token types
       ["@lsp.type.comment"] = { fg = '$comment_pink' },
-      -- ["TabLineSel"] = { fg = '$lime_green', bg = '$comment_pink' },
+      -- BarBar tabs
+      BufferCurrent = { fg = '$lime_green', bg = '$comment_pink' },
     }
   })
   -- require('onedark').load()
+end
+
+-- OneDark Pro Color Scheme config (onedarkpro.nvim)
+local function setup_onedarkpro()
+  require('onedarkpro').setup({
+    colors = my_colors,
+    highlights = {
+      Comment = { fg = "${comment_coral}" },
+      BufferCurrent = { fg = '${comment_pink}', bg = "${mint}" }, -- BarBar's active tab
+    }
+  })
 end
 
 if vim.g.my_scheme == "material" then
@@ -129,9 +142,9 @@ if vim.g.my_scheme == "material" then
   -- vim.cmd('colorscheme material-palenight')
   vim.cmd('colorscheme material-darker')
 
-elseif vim.g.my_scheme == "onedark" then
-  -- setup_onedark()
-  vim.cmd('colorscheme onedark')
+elseif string.find(vim.g.my_scheme, "onedark") then
+  setup_onedarkpro()
+  vim.cmd('colorscheme ' .. vim.g.my_scheme)
 
 elseif vim.g.my_scheme == "nightfox" then
   setup_nightfox()
