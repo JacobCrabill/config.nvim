@@ -56,7 +56,6 @@ local lsp_on_attach = function(client, bufnr)
   vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, nil)
   vim.keymap.set('n', 'gd', vim.lsp.buf.definition, nil)
   vim.keymap.set('n', 'gr', require('telescope.builtin').lsp_references, nil)
-  require('completion').on_attach()
   if client.server_capabilities.documentSymbolProvider then
       navic.attach(client, bufnr)
   end

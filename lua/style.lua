@@ -16,6 +16,7 @@ local my_colors = {
   comment_coral = "#d46398",
   purple = "#C792EA",
   purple2 = "#9C82D9",
+  light_purple = "#DACAF4",
   purple_grey = "#5D4F68",
   dark_purple = "#B480D6",
   coral = "#FF9CAC",
@@ -23,6 +24,8 @@ local my_colors = {
   baby_pink = "#D96293",
   lime_green = "#99EE00",
   mint = "#61ff81",
+  pastel_mint = "#6FFFD4",
+  pale_blue = "#9EC4E4",
 }
 
 -- Tokyo Night style
@@ -135,6 +138,8 @@ local function setup_onedarkpro()
     highlights = {
       Comment = { fg = "${comment_coral}" },
       BufferCurrent = { fg = '${mint}', bg = "${purple2}" }, -- BarBar's active tab
+      ["@variable"] = { fg = '${pale_blue}' },
+      ["@property"] = { fg = '${pale_blue}' },
     }
   })
 end
