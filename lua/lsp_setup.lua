@@ -42,7 +42,7 @@ navic.setup {
     depth_limit_indicator = "..",
     lsp = {
       auto_attach = true,
-      preference = { 'clangd', 'zls' },
+      preference = { 'clangd', 'zls', 'pylsp' },
     },
 }
 
@@ -73,6 +73,12 @@ lspconfig.clangd.setup {
 
 -- Zig Language Server (ZLS)
 lspconfig.zls.setup {
+  capabilities = capabilities,
+  on_attach = lsp_on_attach,
+}
+
+-- Python Language Server (pylsp)
+lspconfig.pylsp.setup {
   capabilities = capabilities,
   on_attach = lsp_on_attach,
 }

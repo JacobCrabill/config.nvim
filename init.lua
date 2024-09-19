@@ -129,6 +129,7 @@ require('lazy').setup({
   'fladson/vim-kitty', -- Kitty config syntax highlighting
   'folke/neodev.nvim' ,-- Lua & NeoVim API LSP support
   'Decodetalkers/neocmakelsp', -- CMake LSP
+  'python-lsp/python-lsp-server',
 
   -- TypeScript (ugh) support (FoxGlove)
   {
