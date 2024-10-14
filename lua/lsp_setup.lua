@@ -67,7 +67,7 @@ end
 --- C++ Language Server (clangd)
 lspconfig.clangd.setup {
   capabilities = capabilities,
-  cmd = { "clangd-12", "--background-index", "--header-insertion=never"},
+  -- cmd = { "clangd", "--background-index", "--header-insertion=never"},
   on_attach = lsp_on_attach,
 }
 
@@ -81,6 +81,20 @@ lspconfig.zls.setup {
 lspconfig.pylsp.setup {
   capabilities = capabilities,
   on_attach = lsp_on_attach,
+  settings = {
+    pylsp = {
+      plugins = {
+        black = { enabled = true },
+        pylint = { enabled = false },
+        pyflakes = { enabled = false },
+        pycodestyle = {
+          enabled = true,
+          ignore = {'E501', 'E231'},
+          maxLineLength = 120,
+        },
+      },
+    },
+  },
 }
 
 -- Rust language support setup
@@ -154,7 +168,7 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] =
 
         -- Enable virtual text, override spacing to 4
         -- virtual_text = {spacing = 4},
-        virtual_text = true,
+        virtual_text = false,
 
         -- Diable showing of diagnostics in insert mode
         update_in_insert = false

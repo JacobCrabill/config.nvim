@@ -26,15 +26,6 @@ vim.api.nvim_create_autocmd({'BufNewFile', 'BufRead'}, {
   callback = "DisableWhitespace",
 })
 
--- enable syntax highlighting for EOSLang files
-vim.api.nvim_create_autocmd({'BufNewFile', 'BufRead'}, {
-  pattern = { '*.eos' },
-  group = 'OnOpen',
-  callback = function()
-    vim.api.nvim_command([[set syntax=eos]])
-  end
-})
-
 -- Strip trailing whitespace
 vim.api.nvim_create_autocmd('BufWritePre', {
   group = 'AutoFmt',
@@ -45,6 +36,15 @@ vim.api.nvim_create_autocmd('BufWritePre', {
   end
 })
 
+-- Set the XML filetype for ROS launch files
+vim.api.nvim_create_autocmd({'BufNewFile', 'BufRead'}, {
+  pattern = { '*.launch' },
+  group = 'OnOpen',
+  callback = function()
+    vim.api.nvim_command([[set syntax=xml]])
+  end
+})
+
 -- C/C++ auto-formatter (Clang-Format)
 vim.api.nvim_create_autocmd('BufWritePre', {
   pattern = { '*.c', '*.cpp', '*.h', '*.hpp' },
@@ -52,6 +52,31 @@ vim.api.nvim_create_autocmd('BufWritePre', {
   callback = function()
     if vim.g.autoformat_enabled then
       vim.api.nvim_command([[:ClangFormat]])
+    end
+  end
+})
+
+-- Python auto-formatter (Black)
+vim.api.nvim_create_autocmd('BufWritePre', {
+  pattern = { '*.py' },
+  group = 'AutoFmt',
+  callback = function()
+    -- Paths listed here will be excluded from autoformatting with black
+    local exclude_paths = { }
+
+    local path = vim.fn.expand('%:p')
+    local excluded = false
+    if vim.g.fmt_enable_exclusions then
+      for _, exclusion in ipairs(exclude_paths) do
+        if string.find(path, exclusion, 1) then
+          excluded = true
+          break
+        end
+      end
+    end
+
+    if vim.g.autoformat_enabled and excluded == false then
+      vim.api.nvim_command([[silent write | silent :execute '! black %' | edit! %]])
     end
   end
 })
