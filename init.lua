@@ -119,7 +119,11 @@ require('lazy').setup({
   -- ==== Language Support ========================================
   -- Language Servers Provider and other language suppport plugins
   'ziglang/zig.vim', -- Zig language support
-  'simrat39/rust-tools.nvim', -- Rust language support
+  {
+    'mrcjkb/rustaceanvim', -- Rust language support
+    version = '^5',        -- Recommended
+    lazy = false,          -- This plugin is already lazy
+  },
   'neovim/nvim-lspconfig',
   'rhysd/vim-clang-format',
   'williamboman/mason.nvim',
