@@ -5,7 +5,7 @@ vim.api.nvim_set_hl(0, 'NonText', { bg=0 })
 vim.opt.background = 'dark'
 
 -- Colorscheme Selection
-vim.g.my_scheme = "onedark"     -- Option for dark mode (default)
+vim.g.my_scheme = "catppuccin"     -- Option for dark mode (default)
 vim.g.my_light_scheme = "dayfox" -- Option for light mode
 vim.g.transparent = false
 
@@ -13,7 +13,7 @@ vim.g.transparent = false
 local my_colors = {
   comment_pink = "#ee55a0",
   comment_pink_2 = "#c69fd6",
-  comment_coral = "#d46398",
+  comment_coral = "#dd7799",
   purple = "#C792EA",
   purple2 = "#9C82D9",
   light_purple = "#DACAF4",
@@ -137,11 +137,70 @@ local function setup_onedarkpro()
     colors = my_colors,
     highlights = {
       Comment = { fg = "${comment_coral}" },
-      BufferCurrent = { fg = '${mint}', bg = "${purple2}" }, -- BarBar's active tab
-      ["@variable"] = { fg = '${pale_blue}' },
-      ["@property"] = { fg = '${pale_blue}' },
+      BufferCurrent = { fg = '${black}', bg = "${blue}" }, -- BarBar's active tab
+      BufferCurrentBtn = { fg = '${black}', bg = "${blue}" }, -- BarBar's active tab
+      BufferCurrentMod = { fg = '${orange}', bg = "${blue}" }, -- BarBar's active tab (modified)
+      -- BufferCurrentIcon = { fg = '${black}', bg = "${yellow}" }, -- BarBar's active tab (modified)
+      ["@variable"] = { fg = '${fg}' },
+      ["@property"] = { fg = '${comment}' },
+      ["@parameter"] = { fg = '${cyan}' },
     }
   })
+end
+
+local function setup_catppuccin()
+  local catppuccin = require('catppuccin')
+  catppuccin.setup{
+    flavour = "frappe",
+    transparent_background = true,
+    color_overrides = {
+      frappe = {
+        rosewater = "#f2d5cf",
+        flamingo = "#eebebe",
+        pink = "#f4b8e4",
+        mauve = "#c290ea",
+        red = "#e78284",
+        maroon = "#ea999c",
+        peach = "#ef9f76",
+        yellow = "#e2c483",
+        green = "#9ad48d",
+        teal = "#81c8be",
+        sky = "#99d1db",
+        sapphire = "#85c1dc",
+        blue = "#83a7fc",
+        lavender = "#babbf1",
+        text = "#c9d8fd",
+        subtext1 = "#b5bfe2",
+        subtext0 = "#a5adce",
+        overlay2 = "#949cbb",
+        overlay1 = "#838ba7",
+        overlay0 = "#737994",
+        surface2 = "#626880",
+        surface1 = "#51576d",
+        surface0 = "#414559",
+        base = "#303446",
+        mantle = "#292c3c",
+        crust = "#232634",
+      },
+    },
+    integrations = {
+      barbar = true,
+      cmp = true,
+      gitsigns = true,
+      nvimtree = true,
+      treesitter = true,
+      notify = false,
+      navic = {
+        enabled = true,
+        -- custom_bg = "NONE",
+      },
+      mini = {
+          enabled = true,
+          indentscope_color = "",
+      },
+      -- For more plugins integrations please scroll down (https://github.com/catppuccin/nvim#integrations)
+    },
+  }
 end
 
 if vim.g.my_scheme == "material" then
@@ -168,6 +227,10 @@ elseif vim.g.my_scheme == "palenight" then
 elseif vim.g.my_scheme == "tokyonight" then
   setup_tokyonight()
   vim.cmd('colorscheme tokyonight')
+
+elseif vim.g.my_scheme == "catppuccin" then
+  setup_catppuccin()
+  vim.cmd('colorscheme catppuccin')
 
 else
   vim.cmd('colorscheme ' .. vim.g.my_scheme)
