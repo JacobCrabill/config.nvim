@@ -29,9 +29,16 @@ vim.api.nvim_create_user_command('ANSILog', ANSIEscapeLogFile, {})
 -- Color the background of any hex or RGB color codes
 local color_files = { '*' }
 local colorizer_opts = {
-    RRGGBBAA = true,
-    -- Enable parsing rgb(...) and hsl(...) functions in css and html
-    css = { rgb_fn = true, hsl_fn = true },
-    html = { rgb_fn = true, hsl_fn = true },
+  RGB = false,
+  names = false,
+  RRGGBBAA = true,
+  -- Enable parsing rgb(...) and hsl(...) functions in css and html
+  rgb_fn = true,
+  hsl_fn = true,
 }
 require('colorizer').setup(color_files, colorizer_opts)
+
+-- Turn inline diagnostics on/off
+-- Helpful for large repos that are non-standards compliant
+vim.api.nvim_create_user_command('DisableDiagnostics', function() vim.diagnostic.enable(false) end, {})
+vim.api.nvim_create_user_command('EnableDiagnostics', function() vim.diagnostic.enable(true) end, {})

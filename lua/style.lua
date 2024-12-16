@@ -7,7 +7,7 @@ vim.opt.background = 'dark'
 -- Colorscheme Selection
 vim.g.my_scheme = "catppuccin"     -- Option for dark mode (default)
 vim.g.my_light_scheme = "dayfox" -- Option for light mode
-vim.g.transparent = false
+vim.g.transparent = true
 
 -- My custom color definitions
 local my_colors = {
@@ -52,7 +52,7 @@ local function setup_material()
     },
 
     disable = {
-      background = true,
+      background = vim.g.transparent,
     },
 
     high_visibility = {
@@ -138,12 +138,18 @@ local function setup_onedarkpro()
     highlights = {
       Comment = { fg = "${comment_coral}" },
       BufferCurrent = { fg = '${black}', bg = "${blue}" }, -- BarBar's active tab
+      -- BufferCurrent = { fg = '${mint}', bg = "${purple2}" }, -- BarBar's active tab
       BufferCurrentBtn = { fg = '${black}', bg = "${blue}" }, -- BarBar's active tab
       BufferCurrentMod = { fg = '${orange}', bg = "${blue}" }, -- BarBar's active tab (modified)
       -- BufferCurrentIcon = { fg = '${black}', bg = "${yellow}" }, -- BarBar's active tab (modified)
       ["@variable"] = { fg = '${fg}' },
+      -- ["@variable"] = { fg = '${pale_blue}' },
       ["@property"] = { fg = '${comment}' },
+      -- ["@property"] = { fg = '${pale_blue}' },
       ["@parameter"] = { fg = '${cyan}' },
+    },
+    options = {
+      transparency = true,
     }
   })
 end
@@ -205,8 +211,8 @@ end
 
 if vim.g.my_scheme == "material" then
   setup_material()
-  -- vim.cmd('colorscheme material-palenight')
-  vim.cmd('colorscheme material-darker')
+  vim.cmd('colorscheme material-palenight')
+  -- vim.cmd('colorscheme material-darker')
 
 elseif string.find(vim.g.my_scheme, "onedark") then
   setup_onedarkpro()

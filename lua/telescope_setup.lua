@@ -1,3 +1,20 @@
+-- Everything in ci-templates is hidden, so change settings
+-- Allow some repos to search hidden files (besides '.git')
+local hidden_projects = { '/home/jcrabill/Codes/ci-templates' }
+
+local should_show_hidden = function(dir)
+  for _, project in ipairs(hidden_projects) do
+    if string.find(dir, project) or dir == project then
+      return true
+    end
+  end
+  return false
+end
+
+local cwd = vim.loop.cwd()
+local show_hidden = should_show_hidden(cwd)
+local dont_use_gitignore = false
+
 require('telescope').setup{
   defaults = {
     sorting_strategy = 'ascending',
@@ -7,9 +24,21 @@ require('telescope').setup{
   },
   pickers = {
     live_grep = {
-      file_ignore_patterns = { '%.html', '%.js' }, -- Minified JS files cause 5+ seconds of lag
-      -- no_ignore = true, -- ignore .gitignore
-    }
+      file_ignore_patterns = { '%.html', '%.js', '.git' }, -- Minified JS files cause 5+ seconds of lag
+      no_ignore = dont_use_gitignore,
+      hidden = show_hidden,
+      additional_args = function(_)
+        if should_show_hidden(vim.loop.cwd()) then
+          return { "--hidden" }
+        else
+          return {}
+        end
+      end,
+    },
+    find_files = {
+      file_ignore_patterns = { '.git' },
+      hidden = show_hidden,
+    },
   },
   preview = {
     filesize_limit = .5, -- size limit in MB
