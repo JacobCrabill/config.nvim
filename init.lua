@@ -157,3 +157,6 @@ require('lazy').setup({
 local nvimrc = vim.fn.stdpath('config')
 vim.opt.rtp:append(nvimrc .. '/lua')
 require('init')
+
+-- Custom .vim file for things that just don't quite work in Lua
+vim.cmd('source ' .. nvimrc .. '/vim/extra.vim')
