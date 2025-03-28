@@ -105,7 +105,7 @@ function ClearTerm()
   vim.opt_local.scrollback = 1
 
   vim.api.nvim_command("startinsert")
-  vim.api.nvim_feedkeys("reset", 't', false)
+  vim.api.nvim_feedkeys("reset && clear", 't', false)
   vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<cr>', true, false, true), 't', true)
 
   vim.opt_local.scrollback = scroll_value
