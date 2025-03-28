@@ -45,6 +45,15 @@ vim.api.nvim_create_autocmd({'BufNewFile', 'BufRead'}, {
   end
 })
 
+-- Set the GLSL (OpenGL) filetype for shader (.fs and .vs) files
+vim.api.nvim_create_autocmd({'BufNewFile', 'BufRead'}, {
+  pattern = { '*.fs', '*.vs' },
+  group = 'OnOpen',
+  callback = function()
+    vim.api.nvim_command([[set syntax=glsl]])
+  end
+})
+
 -- C/C++ auto-formatter (Clang-Format)
 vim.api.nvim_create_autocmd('BufWritePre', {
   pattern = { '*.c', '*.cpp', '*.h', '*.hpp' },

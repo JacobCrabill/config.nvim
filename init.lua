@@ -134,6 +134,7 @@ require('lazy').setup({
   'folke/neodev.nvim' ,-- Lua & NeoVim API LSP support
   'Decodetalkers/neocmakelsp', -- CMake LSP
   'python-lsp/python-lsp-server',
+  'tikhomirov/vim-glsl', -- OpenGL syntax
 
   -- TypeScript (ugh) support (FoxGlove)
   {
