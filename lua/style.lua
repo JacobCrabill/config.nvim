@@ -189,6 +189,12 @@ local function setup_catppuccin()
         crust = "#232634",
       },
     },
+    custom_highlights = function(colors)
+      return {
+        ["@markup.link.url"] = { fg = colors.blue, },
+        ["@markup.raw"] = { fg = colors.mauve, },
+      }
+    end,
     integrations = {
       barbar = true,
       cmp = true,

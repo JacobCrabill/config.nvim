@@ -43,6 +43,7 @@ require('colorizer').setup(color_files, colorizer_opts)
 vim.api.nvim_create_user_command('DisableDiagnostics', function() vim.diagnostic.enable(false) end, {})
 vim.api.nvim_create_user_command('EnableDiagnostics', function() vim.diagnostic.enable(true) end, {})
 
+-- Use Neovim as a Hex Editor
 vim.api.nvim_create_user_command('HexEditOpen', '%!xxd', {})
 vim.api.nvim_create_user_command('HexEditClose', '%!xxd -r', {})
 
