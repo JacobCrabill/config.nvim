@@ -10,7 +10,6 @@ vim.opt.rtp:prepend(lazypath)
 vim.g.have_nerd_font = true
 
 require('lazy').setup({
-  'norcalli/nvim-terminal.lua',
   'SmiteshP/nvim-navic',
   'sindrets/diffview.nvim',
   'voldikss/vim-floaterm',  -- Floating terminal buffers
@@ -120,14 +119,12 @@ require('lazy').setup({
   -- Language Servers Provider and other language suppport plugins
   'ziglang/zig.vim', -- Zig language support
   {
-    'mrcjkb/rustaceanvim', -- Rust language support
-    version = '^5',        -- Recommended
-    lazy = false,          -- This plugin is already lazy
+    'mrcjkb/rustaceanvim', version = '^5', -- Rust language support
   },
-  'neovim/nvim-lspconfig',
-  'rhysd/vim-clang-format',
-  'williamboman/mason.nvim',
-  'williamboman/mason-lspconfig.nvim',
+  'neovim/nvim-lspconfig',             -- Base Neovim LSP configurations
+  'rhysd/vim-clang-format',            -- Clang auto-formatting
+  'williamboman/mason.nvim',           -- The Mason tool: Easily install LSPs, linters, etc.
+  'williamboman/mason-lspconfig.nvim', -- Auto LSP config for Mason
   'aklt/plantuml-syntax',
   'jjo/vim-cue',
   'fladson/vim-kitty', -- Kitty config syntax highlighting
@@ -135,6 +132,7 @@ require('lazy').setup({
   'Decodetalkers/neocmakelsp', -- CMake LSP
   'python-lsp/python-lsp-server',
   'tikhomirov/vim-glsl', -- OpenGL syntax
+  'norcalli/nvim-terminal.lua', -- "Terminal" filetype
 
   -- TypeScript (ugh) support (FoxGlove)
   {
@@ -151,7 +149,7 @@ require('lazy').setup({
   -- Colorize hex and RGB color codes
   'norcalli/nvim-colorizer.lua',
 
-  -- In-buffer Markdown rendering
+  -- Markdown side-pane rendering
   'jacobcrabill/zigdown',
 })
 
