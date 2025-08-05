@@ -158,7 +158,7 @@ local function setup_catppuccin()
   local catppuccin = require('catppuccin')
   catppuccin.setup{
     flavour = "frappe",
-    transparent_background = true,
+    transparent_background = false,
     color_overrides = {
       frappe = {
         rosewater = "#f2d5cf",
@@ -215,6 +215,34 @@ local function setup_catppuccin()
   }
 end
 
+local function setup_onenord()
+  require('onenord').setup({
+    borders = true, -- Split window borders
+    fade_nc = false, -- Fade non-current windows, making them more distinguishable
+    -- -- Style that is applied to various groups: see `highlight-args` for options
+    -- styles = {
+    --   comments = "NONE",
+    --   strings = "NONE",
+    --   keywords = "NONE",
+    --   functions = "NONE",
+    --   variables = "NONE",
+    --   diagnostics = "underline",
+    -- },
+    disable = {
+      background = false, -- Disable setting the background color
+      float_background = false, -- Disable setting the background color for floating windows
+      cursorline = false, -- Disable the cursorline
+      eob_lines = true, -- Hide the end-of-buffer lines
+    },
+    -- Inverse highlight for different groups
+    inverse = {
+      match_paren = false,
+    },
+    custom_highlights = {}, -- Overwrite default highlight groups
+    custom_colors = {}, -- Overwrite default colors
+  })
+end
+
 if vim.g.my_scheme == "material" then
   setup_material()
   vim.cmd('colorscheme material-palenight')
@@ -243,6 +271,10 @@ elseif vim.g.my_scheme == "tokyonight" then
 elseif vim.g.my_scheme == "catppuccin" then
   setup_catppuccin()
   vim.cmd('colorscheme catppuccin')
+
+elseif vim.g.my_scheme == "onenord" then
+  setup_onenord()
+  vim.cmd('colorscheme onenord')
 
 else
   vim.cmd('colorscheme ' .. vim.g.my_scheme)
