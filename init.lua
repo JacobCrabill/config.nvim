@@ -128,7 +128,7 @@ require('lazy').setup({
   'aklt/plantuml-syntax',
   'jjo/vim-cue',
   'fladson/vim-kitty', -- Kitty config syntax highlighting
-  'folke/neodev.nvim' ,-- Lua & NeoVim API LSP support
+  'folke/lazydev.nvim' ,-- Lua & NeoVim API LSP support
   'Decodetalkers/neocmakelsp', -- CMake LSP
   'python-lsp/python-lsp-server',
   'tikhomirov/vim-glsl', -- OpenGL syntax
@@ -151,6 +151,7 @@ require('lazy').setup({
 
   -- Markdown side-pane rendering
   'jacobcrabill/zigdown',
+  'jacobcrabill/hologram.nvim',
 })
 
 -- Add our Lua folder to the runtime path, and source its init.lua
