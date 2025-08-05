@@ -13,7 +13,7 @@ end
 
 local cwd = vim.loop.cwd()
 local show_hidden = should_show_hidden(cwd)
-local dont_use_gitignore = false
+local use_gitignore = true
 
 require('telescope').setup{
   defaults = {
@@ -24,8 +24,8 @@ require('telescope').setup{
   },
   pickers = {
     live_grep = {
-      file_ignore_patterns = { '%.html', '%.js', '.git' }, -- Minified JS files cause 5+ seconds of lag
-      no_ignore = dont_use_gitignore,
+      file_ignore_patterns = { '%.html', '%.js', '.git', '%.min.js', '%.min.css', '^css/', '^cesium/' }, -- Minified JS files cause 5+ seconds of lag
+      no_ignore = not use_gitignore,
       hidden = show_hidden,
       additional_args = function(_)
         if should_show_hidden(vim.loop.cwd()) then
@@ -42,7 +42,7 @@ require('telescope').setup{
   },
   preview = {
     filesize_limit = .5, -- size limit in MB
-    timeout = 250,       -- Timeout in ms
+    timeout = 50,       -- Timeout in ms
     treesitter = false,  -- Don't uses treesitter in preview pane (speed up preview)
   },
   extensions = {
@@ -52,7 +52,7 @@ require('telescope').setup{
       override_file_sorter = true,      -- override the file sorter
       case_mode = "smart_case",         -- or "ignore_case" or "respect_case"
                                         -- the default case_mode is "smart_case"
-      file_ignore_patterns = { "%.html", "%.js" }, -- Minified JS files cause 5+ seconds of lag
+      file_ignore_patterns = { '%.html', '%.js', '%.min.js', '%.min.css', '^css/', '^cesium/' }, -- Minified JS files cause 5+ seconds of lag
     }
   }
 }
