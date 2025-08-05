@@ -6,6 +6,7 @@ vim.api.nvim_create_augroup('vimrc', {})
 vim.g.fmt_enable_exclusions = true
 vim.g.autoformat_enabled = true
 vim.g.cue_fmt_on_save = true
+vim.g.markdown_formatter = 'zigdown'
 
 vim.g["clang_format#detect_style_file"] = 1
 vim.g["clang_format#enable_fallback_style"] = 0
@@ -24,6 +25,15 @@ vim.api.nvim_create_autocmd({'BufNewFile', 'BufRead'}, {
   pattern = { '*.mdp', 'zd-render' },
   group = 'OnOpen',
   callback = "DisableWhitespace",
+})
+
+-- Reset tabstop to 2 on opening a new file (for clangd)
+vim.api.nvim_create_autocmd('BufReadpost', {
+  pattern = { '*' },
+  group = 'OnOpen',
+  callback = function()
+    vim.opt.tabstop=2
+  end
 })
 
 -- Strip trailing whitespace
@@ -96,7 +106,7 @@ vim.api.nvim_create_autocmd('BufWritePre', {
   group = 'AutoFmt',
   callback = function()
     -- Paths listed here will be excluded from cmake-format
-    local exclude_paths = { '/home/jacob/Codes/VBAT', '/home/jacob/Codes/COPY/VBAT' }
+    local exclude_paths = { }
 
     local path = vim.fn.expand('%:p')
     local excluded = false
@@ -129,7 +139,13 @@ vim.api.nvim_create_autocmd('BufWritePre', {
   group = 'AutoFmt',
   callback = function()
     if vim.g.autoformat_enabled then
-      vim.api.nvim_command([[silent write | silent :execute '! mdformat --wrap 100 --end-of-line keep %' | edit! %]])
+      -- Use the chosen Markdown formatter tool
+      if vim.g.markdown_formatter == 'zigdown' then
+        vim.api.nvim_command([[silent write | silent :execute '! zigdown format -I -w 100 %' | edit! %]])
+
+      elseif vim.g.markdown_formatter == 'mdformat' then
+        vim.api.nvim_command([[silent write | silent :execute '! mdformat --wrap 100 --end-of-line keep %' | edit! %]])
+      end
     end
   end
 })
