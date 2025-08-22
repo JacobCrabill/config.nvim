@@ -62,7 +62,7 @@ navic.setup {
     lsp = {
       auto_attach = not is_blacklisted(cwd),
       -- preference = { 'clangd', 'zls', 'pylsp', 'csharp_ls' },
-      preference = { 'ccls', 'zls', 'pylsp', 'csharp_ls' },
+      preference = { 'ccls', 'zls', 'pylsp', 'csharp_ls', 'superhtml' },
     },
 }
 
@@ -86,6 +86,9 @@ end
 
 --- C++ Language Server (clangd)
 if not is_blacklisted(cwd) then
+  if cwd == nil then
+    return
+  end
   -- lspconfig.clangd.setup {
   --   capabilities = capabilities,
   --   cmd = { "clangd", "--background-index=0", "--header-insertion=never"},
@@ -140,6 +143,22 @@ lspconfig.lua_ls.setup({
       }
     }
   }
+})
+
+-- lspconfig.superhtml.setup({
+--   cmd = { "superhtml", "lsp" },
+--   capabilities = capabilities,
+--   on_attach = lsp_on_attach,
+-- })
+vim.api.nvim_create_autocmd("Filetype", {
+pattern = { "html", "shtml", "htm" },
+callback = function()
+  vim.lsp.start({
+    name = "superhtml",
+    cmd = { "superhtml", "lsp" },
+    root_dir = vim.fs.dirname(vim.fs.find({".git"}, { upward = true })[1])
+  })
+end
 })
 
 -- (For Foxglove) TypeScript LSP

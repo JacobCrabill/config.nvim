@@ -116,6 +116,7 @@ vim.api.nvim_set_keymap('t', '<C-l>', [[<C-\><C-N>:lua ClearTerm()<CR>]], { nore
 vim.g.floaterm_width = 0.6
 vim.g.floaterm_height = 0.75
 vim.keymap.set('n', '<C-t>',      [[:FloatermToggle<cr>]], { noremap = true })
+vim.keymap.set('n', 'tt',         [[:FloatermToggle<cr>]], { noremap = true })
 vim.keymap.set('n', '<A-t>',      [[:FloatermNext<cr>]],   { noremap = true })
 vim.keymap.set('n', '<A-T>',      [[:FloatermPrev<cr>]],   { noremap = true })
 vim.keymap.set('n', '<C-x><C-t>', [[:FloatermNew<cr>]],    { noremap = true })

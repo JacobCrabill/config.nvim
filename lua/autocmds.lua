@@ -150,6 +150,17 @@ vim.api.nvim_create_autocmd('BufWritePre', {
   end
 })
 
+-- HTML auto-formatter
+vim.api.nvim_create_autocmd('BufWritePre', {
+  pattern = { '*.html', '*.htmx', '*.htm' },
+  group = 'AutoFmt',
+  callback = function()
+    if vim.g.autoformat_enabled then
+      vim.api.nvim_command([[silent write | silent :execute '! superhtml fmt %' | edit! %]])
+    end
+  end
+})
+
 -- Enable/Disable format-on-save for all languages
 function DisableAutoFmt()
   vim.g.autoformat_enabled = false
