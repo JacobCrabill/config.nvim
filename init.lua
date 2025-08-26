@@ -135,11 +135,11 @@ require('lazy').setup({
   'norcalli/nvim-terminal.lua', -- "Terminal" filetype
 
   -- TypeScript (ugh) support (FoxGlove)
-  {
-    "pmizio/typescript-tools.nvim",
-    dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
-    opts = {},
-  },
+  -- {
+  --   "pmizio/typescript-tools.nvim",
+  --   dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
+  --   opts = {},
+  -- },
 
   -- ==== Misc Tools ==============================================
   -- Render code to a PNG image

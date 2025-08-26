@@ -186,7 +186,7 @@ end
 -- lspconfig.tsserver.setup({
 --   capabilities = capabilities,
 -- })
-require("typescript-tools").setup({})
+-- require("typescript-tools").setup({})
 
 -- CMake LSP Setup
 if not lsp_configs.neocmake then

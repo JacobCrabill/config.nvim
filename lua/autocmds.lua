@@ -141,7 +141,7 @@ vim.api.nvim_create_autocmd('BufWritePre', {
     if vim.g.autoformat_enabled then
       -- Use the chosen Markdown formatter tool
       if vim.g.markdown_formatter == 'zigdown' then
-        vim.api.nvim_command([[silent write | silent :execute '! zigdown format -I -w 100 %' | edit! %]])
+        vim.api.nvim_command([[ZigdownFormat]])
 
       elseif vim.g.markdown_formatter == 'mdformat' then
         vim.api.nvim_command([[silent write | silent :execute '! mdformat --wrap 100 --end-of-line keep %' | edit! %]])

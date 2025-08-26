@@ -1,5 +1,5 @@
--- Zigdown (side-pane Markdown renderer)
-require('zigdown').setup()
+-- Zigdown (side-pane Markdown previewer and formatter)
+require('zigdown').setup({ format_width = 100 })
 
 -- Setup Silicon's options
 vim.g.silicon = {
