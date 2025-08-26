@@ -1,23 +1,28 @@
 -- Enable Lua / NeoVim API support
 -- require('neodev').setup({})
+require('lazydev').setup({})
 
 -- Setup lspconfig
 local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
 local lspconfig = require('lspconfig')
 local lsp_configs = require("lspconfig.configs")
+local cpp_lsp = 'ccls' -- ccls or clangd
 
 local cwd = vim.loop.cwd()
-local project_blacklist = { } -- '/home/jcrabill/Codes/px4-firmware' }
+local project_blacklist = {
+  -- '/home/jcrabill/Codes/px4-firmware'
+}
 
 local compile_commands_dir = {
-  ["/home/jcrabill/Codes/px4-firmware"] = "./build/px4_sitl_jsbsim",
-  ["/home/jcrabill/Codes/darkhive-autonomy"] = "./build-x86/darkhive-autonomy/build",
+  ["/home/jcrabill/Codes/px4-firmware"] = "./build/ark_fmu-v6_default",
+  -- ["/home/jcrabill/Codes/px4-firmware"] = "./build/px4_sitl_jsbsim",
+  -- ["/home/jcrabill/Codes/darkhive-autonomy"] = "./build-x86/darkhive-autonomy/build",
 }
 
 local is_blacklisted = function(dir)
   for _, project in ipairs(project_blacklist) do
     if string.find(dir, project) or dir == project then
-      -- vim.notify("LSP: Ignoring blacklisted project: " .. dir, vim.log.levels.DEBUG)
+      vim.notify("LSP: Ignoring blacklisted project: " .. dir, vim.log.levels.INFO)
       -- vim.api.nvim_echo("LSP: Ignoring blacklisted project: " .. dir, false, {})
       return true
     end
@@ -61,8 +66,7 @@ navic.setup {
     depth_limit_indicator = "..",
     lsp = {
       auto_attach = not is_blacklisted(cwd),
-      -- preference = { 'clangd', 'zls', 'pylsp', 'csharp_ls' },
-      preference = { 'ccls', 'zls', 'pylsp', 'csharp_ls', 'superhtml' },
+      preference = { cpp_lsp, 'zls', 'pylsp', 'csharp_ls', 'superhtml', 'kotlin_language_server' },
     },
 }
 
@@ -84,28 +88,45 @@ local lsp_on_attach = function(client, bufnr)
   -- client.server_capabilities.semanticTokensProvider = nil
 end
 
---- C++ Language Server (clangd)
+--- C++ Language Server (clangd or ccls)
 if not is_blacklisted(cwd) then
-  if cwd == nil then
+  assert(cwd ~= nil, "cwd is nil!")
+
+  if cpp_lsp == 'clangd' then
+    lspconfig.clangd.setup {
+      capabilities = capabilities,
+      cmd = { "clangd", "--background-index=0", "--header-insertion=never"},
+      on_attach = lsp_on_attach,
+      settings = {
+        Lua = {
+            format = {
+            enable = true,
+            defaultConfig = {
+              indent_style = "space",
+              indent_size = "2",
+            },
+          },
+        }
+      }
+    }
     return
   end
-  -- lspconfig.clangd.setup {
-  --   capabilities = capabilities,
-  --   cmd = { "clangd", "--background-index=0", "--header-insertion=never"},
-  --   on_attach = lsp_on_attach,
-  -- }
-  -- TODO: Telescope picker for 'compilationDatabaseDirectory' to allow changing PX4 targets
-  if compile_commands_dir[cwd] == nil then
-    compile_commands_dir[cwd] = "./build/"
+
+  if cpp_lsp == 'ccls' then
+    -- TODO: Telescope picker for 'compilationDatabaseDirectory' to allow changing PX4 targets
+    if compile_commands_dir[cwd] == nil then
+      compile_commands_dir[cwd] = "./build/"
+    end
+    lspconfig.ccls.setup {
+      capabilities = capabilities,
+      cmd = { "ccls" },
+      init_options = {
+        compilationDatabaseDirectory = compile_commands_dir[cwd]
+      },
+      on_attach = lsp_on_attach,
+    }
+    return
   end
-  lspconfig.ccls.setup {
-    capabilities = capabilities,
-    cmd = { "ccls" },
-    init_options = {
-      compilationDatabaseDirectory = compile_commands_dir[cwd]
-    },
-    on_attach = lsp_on_attach,
-  }
 end
 
 -- Zig Language Server (ZLS)
@@ -126,7 +147,7 @@ lspconfig.pylsp.setup {
         pyflakes = { enabled = false },
         pycodestyle = {
           enabled = true,
-          ignore = {'E501', 'E231'},
+          ignore = {'E501', 'E231', 'E201', 'E202', 'E203', 'W605', 'W503'},
           maxLineLength = 120,
         },
       },
@@ -194,6 +215,12 @@ end
 
 -- C# (Dotnet / Unity)
 lspconfig.csharp_ls.setup {
+  capabilities = capabilities,
+  on_attach = lsp_on_attach,
+}
+
+-- Kotlin (Java)
+lspconfig.kotlin_language_server.setup {
   capabilities = capabilities,
   on_attach = lsp_on_attach,
 }
