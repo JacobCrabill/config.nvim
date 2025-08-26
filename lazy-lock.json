@@ -34,7 +34,7 @@
   "nvim-treesitter": { "branch": "master", "commit": "42fc28ba918343ebfd5565147a42a26580579482" },
   "nvim-web-devicons": { "branch": "master", "commit": "c2599a81ecabaae07c49ff9b45dcd032a8d90f1a" },
   "onedarkpro.nvim": { "branch": "main", "commit": "3891f6f8db49774aa861d08ddc7c18ad8f1340e9" },
-  "onenord.nvim": { "branch": "main", "commit": "dbf4c848929c473ec548a080fc32cb85aa2af706" },
+  "onenord.nvim": { "branch": "dev/jacob/barbar-highlights", "commit": "6ec2a340843853fab3dbd28509b83938d91760be" },
   "palenight.vim": { "branch": "master", "commit": "5552a6349bcd927df9f17db34f017b77b963e503" },
   "plantuml-syntax": { "branch": "master", "commit": "9d4900aa16674bf5bb8296a72b975317d573b547" },
   "playground": { "branch": "master", "commit": "ba48c6a62a280eefb7c85725b0915e021a1a0749" },
@@ -60,5 +60,5 @@
   "vim-visual-multi": { "branch": "master", "commit": "a6975e7c1ee157615bbc80fc25e4392f71c344d4" },
   "vim-vsnip": { "branch": "master", "commit": "0a4b8419e44f47c57eec4c90df17567ad4b1b36e" },
   "zig.vim": { "branch": "master", "commit": "f65ae7a570b71d7a7aa4978ff9ac327e04a36e1e" },
-  "zigdown": { "branch": "main", "commit": "6871051e76614ed43eb446cd12f70f2d73857a14" }
+  "zigdown": { "branch": "main", "commit": "32771a720d9a91833c9d14e3387cdb983da9c9c7" }
 }
