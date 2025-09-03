@@ -2,7 +2,7 @@
 vim.g.mapleader = " "
 
 -- Turn off macros
-vim.keymap.set('n', 'q', '<Nop>', {})
+-- vim.keymap.set('n', 'q', '<Nop>', {})
 
 -- The standard NeoVim config path
 local nvimrc = vim.fn.stdpath('config')
@@ -83,6 +83,10 @@ vim.keymap.set('n', '<C-p>', ':Telescope find_files<cr>', {})
 vim.keymap.set('n', '<C-h>', ':Telescope grep_string<cr>', {})
 vim.keymap.set('n', '<C-f>', ':Telescope resume<cr>', {}) -- Open last search
 vim.keymap.set('n', '<leader>ts', ':Telescope colorscheme<cr>', {})
+vim.keymap.set('n', '<leader>ts', ':Telescope colorscheme<cr>', {})
+-- not sure which one I'll like more
+vim.keymap.set('n', '<leader>p', ':Telescope buffers<cr>', {})
+vim.keymap.set('n', '<leader>f', ':Telescope buffers<cr>', {})
 --------------------------------------------------------------------------------
 
 -- BarBar ----------------------------------------------------------------------
