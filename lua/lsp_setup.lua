@@ -4,8 +4,6 @@ require('lazydev').setup({})
 
 -- Setup lspconfig
 local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
-local lspconfig = require('lspconfig')
-local lsp_configs = require("lspconfig.configs")
 local cpp_lsp = 'ccls' -- ccls or clangd
 
 local cwd = vim.loop.cwd()
@@ -93,9 +91,9 @@ if not is_blacklisted(cwd) then
   assert(cwd ~= nil, "cwd is nil!")
 
   if cpp_lsp == 'clangd' then
-    lspconfig.clangd.setup {
+    vim.lsp.setup('clangd', {
       capabilities = capabilities,
-      cmd = { "clangd", "--background-index=0", "--header-insertion=never"},
+      cmd = { "clangd", "--background-index=0", "--header-insertion=never" },
       on_attach = lsp_on_attach,
       settings = {
         Lua = {
@@ -108,35 +106,31 @@ if not is_blacklisted(cwd) then
           },
         }
       }
-    }
-    return
-  end
-
-  if cpp_lsp == 'ccls' then
+    })
+  elseif cpp_lsp == 'ccls' then
     -- TODO: Telescope picker for 'compilationDatabaseDirectory' to allow changing PX4 targets
     if compile_commands_dir[cwd] == nil then
       compile_commands_dir[cwd] = "./build/"
     end
-    lspconfig.ccls.setup {
+    vim.lsp.enable('ccls', {
       capabilities = capabilities,
       cmd = { "ccls" },
       init_options = {
         compilationDatabaseDirectory = compile_commands_dir[cwd]
       },
       on_attach = lsp_on_attach,
-    }
-    return
+    })
   end
 end
 
 -- Zig Language Server (ZLS)
-lspconfig.zls.setup {
+vim.lsp.enable('zls', {
   capabilities = capabilities,
   on_attach = lsp_on_attach,
-}
+})
 
 -- Python Language Server (pylsp)
-lspconfig.pylsp.setup {
+vim.lsp.enable('pylsp', {
   capabilities = capabilities,
   on_attach = lsp_on_attach,
   settings = {
@@ -153,10 +147,10 @@ lspconfig.pylsp.setup {
       },
     },
   },
-}
+})
 
 -- Lua language support (including NeoVim APIs)
-lspconfig.lua_ls.setup({
+vim.lsp.enable('lua_ls', {
   settings = {
     Lua = {
       completion = {
@@ -166,11 +160,9 @@ lspconfig.lua_ls.setup({
   }
 })
 
--- lspconfig.superhtml.setup({
---   cmd = { "superhtml", "lsp" },
---   capabilities = capabilities,
---   on_attach = lsp_on_attach,
--- })
+-- SuperHTML - HTML LSP / Linter
+vim.lsp.enable('superhtml')
+
 vim.api.nvim_create_autocmd("Filetype", {
 pattern = { "html", "shtml", "htm" },
 callback = function()
@@ -182,48 +174,52 @@ callback = function()
 end
 })
 
+vim.lsp.enable('neocmake', {
+  -- on_attach = lsp_on_attach,
+})
+
+-- -- CMake LSP Setup
+-- if not lsp_configs.neocmake then
+--     lsp_configs.neocmake = {
+--         default_config = {
+--             cmd = { "neocmakelsp", "--stdio" },
+--             filetypes = { "cmake" },
+--             root_dir = function(fname)
+--                 return lspconfig.util.find_git_ancestor(fname)
+--             end,
+--             single_file_support = true,-- suggested
+--             on_attach = lsp_on_attach, -- Not actually clangd specific, so should work
+--             init_options = {
+--                 format = {
+--                     enable = false
+--                 },
+--                 lint = {
+--                     enable = true
+--                 },
+--                 scan_cmake_in_package = true -- default is true
+--             }
+--         }
+--     }
+--     lspconfig.neocmake.setup({})
+-- end
+
+-- C# (Dotnet / Unity)
+vim.lsp.enable('csharp_ls', {
+  capabilities = capabilities,
+  on_attach = lsp_on_attach,
+})
+
+-- Kotlin (Java)
+vim.lsp.enable('kotlin_language_server', {
+  capabilities = capabilities,
+  on_attach = lsp_on_attach,
+})
+
 -- (For Foxglove) TypeScript LSP
--- lspconfig.tsserver.setup({
+-- vim.lsp.enable('tsserver', {
 --   capabilities = capabilities,
 -- })
 -- require("typescript-tools").setup({})
-
--- CMake LSP Setup
-if not lsp_configs.neocmake then
-    lsp_configs.neocmake = {
-        default_config = {
-            cmd = { "neocmakelsp", "--stdio" },
-            filetypes = { "cmake" },
-            root_dir = function(fname)
-                return lspconfig.util.find_git_ancestor(fname)
-            end,
-            single_file_support = true,-- suggested
-            on_attach = lsp_on_attach, -- Not actually clangd specific, so should work
-            init_options = {
-                format = {
-                    enable = false
-                },
-                lint = {
-                    enable = true
-                },
-                scan_cmake_in_package = true -- default is true
-            }
-        }
-    }
-    lspconfig.neocmake.setup({})
-end
-
--- C# (Dotnet / Unity)
-lspconfig.csharp_ls.setup {
-  capabilities = capabilities,
-  on_attach = lsp_on_attach,
-}
-
--- Kotlin (Java)
-lspconfig.kotlin_language_server.setup {
-  capabilities = capabilities,
-  on_attach = lsp_on_attach,
-}
 
 ----------------------------------------------------------------
 -- Diagnostics Setup
