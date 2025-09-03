@@ -1,6 +1,5 @@
 -- Enable Lua / NeoVim API support
--- require('neodev').setup({})
-require('lazydev').setup({})
+require('lazydev').setup()
 
 -- Setup lspconfig
 local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
@@ -64,7 +63,7 @@ navic.setup {
     depth_limit_indicator = "..",
     lsp = {
       auto_attach = not is_blacklisted(cwd),
-      preference = { cpp_lsp, 'zls', 'pylsp', 'csharp_ls', 'superhtml', 'kotlin_language_server' },
+      preference = { cpp_lsp, 'zls', 'neocmake', 'pylsp', 'lua_ls', 'superhtml', 'csharp_ls', 'kotlin_language_server' },
     },
 }
 
@@ -72,12 +71,20 @@ navic.setup {
 -- Replace <YOUR_LSP_SERVER> with each lsp server you've enabled
 ----------------------------------------------------------------
 
+-- Enable all language servers by default
+vim.lsp.enable({ cpp_lsp, 'zls', 'neocmake', 'pylsp', 'lua_ls', 'superhtml', 'csharp_ls', 'kotlin_language_server' })
+
 -- Generic Language Server on_attach function
 local lsp_on_attach = function(client, bufnr)
-  vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+  -- vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+  vim.api.nvim_set_option_value('omnifunc', 'v:lua.vim.lsp.omnifunc', {
+    scope = 'local',
+    buf = bufnr,
+  })
   vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, nil)
   vim.keymap.set('n', 'gd', vim.lsp.buf.definition, nil)
   vim.keymap.set('n', 'gr', require('telescope.builtin').lsp_references, nil)
+  vim.keymap.set("n", "gl", vim.diagnostic.open_float, nil)
   if client.server_capabilities.documentSymbolProvider then
       navic.attach(client, bufnr)
   end
@@ -91,7 +98,7 @@ if not is_blacklisted(cwd) then
   assert(cwd ~= nil, "cwd is nil!")
 
   if cpp_lsp == 'clangd' then
-    vim.lsp.setup('clangd', {
+    vim.lsp.config('clangd', {
       capabilities = capabilities,
       cmd = { "clangd", "--background-index=0", "--header-insertion=never" },
       on_attach = lsp_on_attach,
@@ -112,25 +119,25 @@ if not is_blacklisted(cwd) then
     if compile_commands_dir[cwd] == nil then
       compile_commands_dir[cwd] = "./build/"
     end
-    vim.lsp.enable('ccls', {
+    vim.lsp.config('ccls', {
       capabilities = capabilities,
+      on_attach = lsp_on_attach,
       cmd = { "ccls" },
       init_options = {
         compilationDatabaseDirectory = compile_commands_dir[cwd]
       },
-      on_attach = lsp_on_attach,
     })
   end
 end
 
 -- Zig Language Server (ZLS)
-vim.lsp.enable('zls', {
+vim.lsp.config('zls', {
   capabilities = capabilities,
   on_attach = lsp_on_attach,
 })
 
 -- Python Language Server (pylsp)
-vim.lsp.enable('pylsp', {
+vim.lsp.config('pylsp', {
   capabilities = capabilities,
   on_attach = lsp_on_attach,
   settings = {
@@ -150,7 +157,8 @@ vim.lsp.enable('pylsp', {
 })
 
 -- Lua language support (including NeoVim APIs)
-vim.lsp.enable('lua_ls', {
+vim.lsp.enable('lua_ls')
+vim.lsp.config('lua_ls', {
   settings = {
     Lua = {
       completion = {
@@ -163,18 +171,8 @@ vim.lsp.enable('lua_ls', {
 -- SuperHTML - HTML LSP / Linter
 vim.lsp.enable('superhtml')
 
-vim.api.nvim_create_autocmd("Filetype", {
-pattern = { "html", "shtml", "htm" },
-callback = function()
-  vim.lsp.start({
-    name = "superhtml",
-    cmd = { "superhtml", "lsp" },
-    root_dir = vim.fs.dirname(vim.fs.find({".git"}, { upward = true })[1])
-  })
-end
-})
-
-vim.lsp.enable('neocmake', {
+vim.lsp.enable('neocmake')
+vim.lsp.config('neocmake', {
   -- on_attach = lsp_on_attach,
 })
 
@@ -204,13 +202,15 @@ vim.lsp.enable('neocmake', {
 -- end
 
 -- C# (Dotnet / Unity)
-vim.lsp.enable('csharp_ls', {
+vim.lsp.enable('csharp_ls')
+vim.lsp.config('csharp_ls', {
   capabilities = capabilities,
   on_attach = lsp_on_attach,
 })
 
 -- Kotlin (Java)
-vim.lsp.enable('kotlin_language_server', {
+vim.lsp.enable('kotlin_language_server')
+vim.lsp.config('kotlin_language_server', {
   capabilities = capabilities,
   on_attach = lsp_on_attach,
 })
@@ -225,25 +225,30 @@ vim.lsp.enable('kotlin_language_server', {
 -- Diagnostics Setup
 ----------------------------------------------------------------
 
-vim.lsp.handlers["textDocument/publishDiagnostics"] =
-    vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
-        -- Use a function to dynamically turn signs off
-        -- and on, using buffer local variables
-        signs = true,
-
-        -- Enable/Disable underline squiggles
-        underline = true,
-
-        -- Enable virtual text, override spacing to 4
-        -- virtual_text = {spacing = 4},
-        virtual_text = true,
-
-        -- Diable showing of diagnostics in insert mode
-        update_in_insert = false
-    })
+-- TODO: Update for latest neovim APIs
+-- vim.lsp.handlers["textDocument/publishDiagnostics"] =
+--     vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
+--         -- Use a function to dynamically turn signs off
+--         -- and on, using buffer local variables
+--         signs = true,
+--
+--         -- Enable/Disable underline squiggles
+--         underline = true,
+--
+--         -- Enable virtual text, override spacing to 4
+--         -- virtual_text = {spacing = 4},
+--         virtual_text = true,
+--         virtual_lines = true,
+--
+--         -- Diable showing of diagnostics in insert mode
+--         update_in_insert = false
+--     })
 
 -- Open the LSP hover menu showing documentation of the symbol under the cursor
 vim.keymap.set('n', 'K', vim.lsp.buf.hover, nil)
+-- Open the LSP hover menu showing any active diagnostics under the cursor
+vim.keymap.set('n', 'L', vim.diagnostic.open_float, nil)
 
--- Turn off diagnostics for the current buffer
+-- Turn diagnostics off/on for the current buffer
 vim.api.nvim_create_user_command('DisableDiagnostics', function() vim.diagnostics.disable() end, {})
+vim.api.nvim_create_user_command('EnableDiagnostics', function() vim.diagnostics.enable() end, {})
