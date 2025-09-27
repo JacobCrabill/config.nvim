@@ -136,6 +136,17 @@ vim.lsp.config('zls', {
   on_attach = lsp_on_attach,
 })
 
+-- Auto-fix minor issues on save (e.g. unused variables)
+vim.api.nvim_create_autocmd('BufWritePre',{
+  pattern = {"*.zig", "*.zon"},
+  callback = function(ev)
+    vim.lsp.buf.code_action({
+      context = { only = { "source.fixAll" } },
+      apply = true,
+    })
+  end
+})
+
 -- Python Language Server (pylsp)
 vim.lsp.config('pylsp', {
   capabilities = capabilities,
