@@ -14,6 +14,7 @@ require('lazy').setup({
   'sindrets/diffview.nvim',
   'voldikss/vim-floaterm',  -- Floating terminal buffers
   'mg979/vim-visual-multi', -- Multiple cursors
+  'nvim-lua/plenary.nvim',
 
   { -- Telescope: Quickly search through files, integrate with LSP, etc.
       'nvim-telescope/telescope.nvim',
@@ -179,17 +180,6 @@ require('lazy').setup({
   --     smear_insert_mode = false,
   --   },
   -- }
-
-  -- Claude Code
-  {
-    "greggh/claude-code.nvim",
-    dependencies = {
-      "nvim-lua/plenary.nvim", -- Required for git operations
-    },
-    config = function()
-      require("claude-code").setup()
-    end
-  },
 })
 
 local nvimrc = vim.fn.stdpath('config')
