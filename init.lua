@@ -55,8 +55,10 @@ require('lazy').setup({
   -- Treesitter
   {
     'nvim-treesitter/nvim-treesitter',
+    tag = "v0.10.0",
+    lazy = false,
     build = ':TSUpdate',
-    dependencies = { 'nvim-treesitter/playground' },
+    -- dependencies = { 'nvim-treesitter/playground' },
   },
   'tpope/vim-fugitive', -- Nice Git integration
   -- 'tpope/vim-commentary'
@@ -152,12 +154,56 @@ require('lazy').setup({
   -- Markdown side-pane rendering
   'jacobcrabill/zigdown',
   'jacobcrabill/hologram.nvim',
+
+  -- Animated Cursor
+  -- NOTE: Seems to break Zigdown for some reason!
+  -- {
+  --   "sphamba/smear-cursor.nvim",
+  --   opts = {
+  --     -- Smear cursor when switching buffers or windows.
+  --     smear_between_buffers = false,
+
+  --     -- Smear cursor when moving within line or to neighbor lines.
+  --     -- Use `min_horizontal_distance_smear` and `min_vertical_distance_smear` for finer control
+  --     smear_between_neighbor_lines = true,
+
+  --     -- Draw the smear in buffer space instead of screen space when scrolling
+  --     scroll_buffer_space = true,
+
+  --     -- Set to `true` if your font supports legacy computing symbols (block unicode symbols).
+  --     -- Smears and particles will look a lot less blocky.
+  --     legacy_computing_symbols_support = true,
+
+  --     -- Smear cursor in insert mode.
+  --     -- See also `vertical_bar_cursor_insert_mode` and `distance_stop_animating_vertical_bar`.
+  --     smear_insert_mode = false,
+  --   },
+  -- }
+
+  -- Claude Code
+  {
+    "greggh/claude-code.nvim",
+    dependencies = {
+      "nvim-lua/plenary.nvim", -- Required for git operations
+    },
+    config = function()
+      require("claude-code").setup()
+    end
+  },
 })
 
--- Add our Lua folder to the runtime path, and source its init.lua
 local nvimrc = vim.fn.stdpath('config')
-vim.opt.rtp:append(nvimrc .. '/lua')
-require('init')
 
 -- Custom .vim file for things that just don't quite work in Lua
 vim.cmd('source ' .. nvimrc .. '/vim/extra.vim')
+vim.cmd('source ' .. nvimrc .. '/syntax/eos.vim')
+vim.filetype.add({
+  extension = {
+    eos = 'eos',
+    mdx = 'markdown',
+  },
+})
+
+-- Add our Lua folder to the runtime path, and source its init.lua
+vim.opt.rtp:append(nvimrc .. '/lua')
+require('init')

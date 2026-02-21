@@ -24,7 +24,12 @@ require('telescope').setup{
   },
   pickers = {
     live_grep = {
-      file_ignore_patterns = { '%.html', '%.js', '.git', '%.min.js', '%.min.css', '^css/', '^cesium/' }, -- Minified JS files cause 5+ seconds of lag
+      -- Minified JS files and similar files with incredibly long lines freeze Telescope
+      file_ignore_patterns = {
+        '%.html', '%.js', '%.min.js', '%.min.css',
+        '%.jpeg', '%.jpg', '%.svg', '%.png', '%.jar',
+        '^.git', '^css/', '^cesium/', '^node_modules/'
+      },
       no_ignore = not use_gitignore,
       hidden = show_hidden,
       additional_args = function(_)

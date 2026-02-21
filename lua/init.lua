@@ -25,9 +25,6 @@ require('lsp_setup')
 -- Telescope
 require('telescope_setup')
 
--- TreeSitter
-require('ts_setup')
-
 -- DAP (Debug Adapter Protocol)
 require('dap_config')
 

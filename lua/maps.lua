@@ -83,7 +83,6 @@ vim.keymap.set('n', '<C-p>', ':Telescope find_files<cr>', {})
 vim.keymap.set('n', '<C-h>', ':Telescope grep_string<cr>', {})
 vim.keymap.set('n', '<C-f>', ':Telescope resume<cr>', {}) -- Open last search
 vim.keymap.set('n', '<leader>ts', ':Telescope colorscheme<cr>', {})
-vim.keymap.set('n', '<leader>ts', ':Telescope colorscheme<cr>', {})
 -- not sure which one I'll like more
 vim.keymap.set('n', '<leader>p', ':Telescope buffers<cr>', {})
 vim.keymap.set('n', '<leader>f', ':Telescope buffers<cr>', {})
@@ -100,8 +99,8 @@ vim.keymap.set('n', '<A-S-,>', [[<Cmd>BufferMovePrevious<CR>]], { silent = true 
 vim.keymap.set('n', '<A-S-.>', [[<Cmd>BufferMoveNext<CR>]],     { silent = true })
 --------------------------------------------------------------------------------
 
--- Terminal mode: Allow ESC to exit insert mode
-vim.keymap.set('t', '<ESC>', [[<C-\><C-n>]], { noremap = true })
+-- Terminal mode: Allow ESC to exit insert mode (but still pass an ESC through first!)
+vim.keymap.set('t', '<ESC>', [[<ESC><C-\><C-n>]], { noremap = true })
 
 -- Clear terminal (nvim terminal equivalent to 'reset' in normal terminal)
 local scroll_value = 5000

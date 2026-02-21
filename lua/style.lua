@@ -5,8 +5,8 @@ vim.api.nvim_set_hl(0, 'NonText', { bg=0 })
 vim.opt.background = 'dark'
 
 -- Colorscheme Selection
-vim.g.my_scheme = "onenord"             -- Option for dark mode (default)
-vim.g.my_light_scheme = "onenord-light" -- Option for light mode
+vim.g.my_scheme = "catppuccin-frappe"             -- Option for dark mode (default)
+vim.g.my_light_scheme = "catppuccin-latte" -- Option for light mode
 vim.g.transparent = true
 
 -- My custom color definitions

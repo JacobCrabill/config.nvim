@@ -3,17 +3,15 @@ require('lazydev').setup()
 
 -- Setup lspconfig
 local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
-local cpp_lsp = 'ccls' -- ccls or clangd
+local cpp_lsp = 'clangd' -- ccls or clangd
 
 local cwd = vim.loop.cwd()
 local project_blacklist = {
-  -- '/home/jcrabill/Codes/px4-firmware'
+  -- '/path/to/repo_root'
 }
 
 local compile_commands_dir = {
-  ["/home/jcrabill/Codes/px4-firmware"] = "./build/ark_fmu-v6_default",
-  -- ["/home/jcrabill/Codes/px4-firmware"] = "./build/px4_sitl_jsbsim",
-  -- ["/home/jcrabill/Codes/darkhive-autonomy"] = "./build-x86/darkhive-autonomy/build",
+  -- ["path/to/repo_root"] = "./path/to/build/",
 }
 
 local is_blacklisted = function(dir)
