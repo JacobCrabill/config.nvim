@@ -3,9 +3,10 @@
 My complete Neovim config
 
 ```
-NVIM v0.11.0
+NVIM v0.11.5
 Build type: Release
 LuaJIT 2.1.1741730670
+Run "nvim -V1 -v" for more info
 ```
 
 ## Setup
