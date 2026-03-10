@@ -148,7 +148,25 @@ require('lazy').setup({
   -- Render code to a PNG image
   -- Prerequisites: See https://crates.io/crates/silicon
   --   cargo install silicon
-  'segeljakt/vim-silicon',
+  --   sudo apt install wl-clipboard (see: https://github.com/michaelrommel/nvim-silicon/issues/24)
+  {
+    'michaelrommel/nvim-silicon',
+    lazy = true,
+    cmd = "Silicon",
+    main = "nvim-silicon",
+    opts = {
+      -- Configuration here, or leave empty to use defaults
+      theme               = 'OneHalfDark',
+      background          = '#000000',
+      pad_horiz       = 0,
+      pad_vert        = 0,
+      window_controls = false,
+      output = function()
+        return '/home/jacob/Documents/Silicon/silicon-' .. os.date("!%Y-%m-%dT%H-%M-%SZ") .. '.png'
+      end,
+      to_clipboard = true,
+    }
+  },
   -- Colorize hex and RGB color codes
   'norcalli/nvim-colorizer.lua',
 

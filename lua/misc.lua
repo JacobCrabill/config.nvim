@@ -1,15 +1,16 @@
 -- Zigdown (side-pane Markdown previewer and formatter)
 require('zigdown').setup({ format_width = 100 })
 
--- Setup Silicon's options
-vim.g.silicon = {
-  theme               = 'OneHalfDark',
-  background          = '#000000',
-  ['pad-horiz']       = 0,
-  ['pad-vert']        = 0,
-  ['window-controls'] = false,
-  output = '~/Documents/Silicon/silicon-{time:%Y-%m-%d-%H%M%S}.png',
-}
+-- -- Setup Silicon's options
+-- vim.g.silicon = {
+--   theme               = 'OneHalfDark',
+--   background          = '#000000',
+--   ['pad-horiz']       = 0,
+--   ['pad-vert']        = 0,
+--   ['window-controls'] = false,
+--   output = '~/Documents/Silicon/silicon-{time:%Y-%m-%d-%H%M%S}.png',
+--   to_clipboard = true,
+-- }
 
 -- Terminal filetype (renders most ANSI escape codes)
 require('terminal').setup()
