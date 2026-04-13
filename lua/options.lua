@@ -39,3 +39,6 @@ vim.opt.timeoutlen = 400
 -- Enable spell checking
 vim.opt.spelllang = 'en_us'
 -- vim.opt.spell = true
+
+-- Enable TreeSitter highlighting of Markdown code blocks
+vim.g.markdown_fenced_languages = {'python', 'c', 'cpp', 'c++=cpp', 'sh', 'bash', 'zig', 'json', 'cue'}
