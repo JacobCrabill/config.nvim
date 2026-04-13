@@ -5,9 +5,8 @@ vim.api.nvim_set_hl(0, 'NonText', { bg=0 })
 vim.opt.background = 'dark'
 
 -- Colorscheme Selection
--- vim.g.my_scheme = "material"
--- vim.g.my_scheme = "onedark"             -- Option for dark mode (default)
-vim.g.my_scheme = "catppuccin-frappe"   -- Option for dark mode (default)
+-- Go-to themes: "onedark", "material", "onenord", "catppuccin-frappe"
+vim.g.my_scheme = "material"               -- Option for dark mode (default)
 vim.g.my_light_scheme = "catppuccin-latte" -- Option for light mode
 vim.g.transparent = false
 
@@ -28,6 +27,7 @@ local my_colors = {
   mint = "#61ff81",
   pastel_mint = "#6FFFD4",
   pale_blue = "#9EC4E4",
+  pale_yellow = "#F9E4A4", -- Perfect for Palenight
 }
 
 -- Tokyo Night style
@@ -75,11 +75,12 @@ local function setup_material()
     },
 
     custom_colors = function(colors)
-      colors.syntax.comments = "#EA9892" -- "#FF7878"
+      colors.syntax.comments = my_colors.pale_yellow
       colors.editor.line_numbers = my_colors.purple_grey
       colors.editor.cursor = my_colors.lime_green
     end
   })
+  require('material.functions').change_style("palenight")
 end
 
 -- Nightfox Setup
@@ -252,8 +253,6 @@ end
 
 if vim.g.my_scheme == "material" then
   setup_material()
-  -- vim.cmd('colorscheme material-palenight')
-  vim.cmd('colorscheme material-darker')
 
 elseif string.find(vim.g.my_scheme, "onedark") then
   setup_onedark()
