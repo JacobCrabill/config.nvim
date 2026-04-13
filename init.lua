@@ -84,8 +84,8 @@ require('lazy').setup({
   'EdenEast/nightfox.nvim',
   'marko-cerovac/material.nvim',
   'folke/tokyonight.nvim',
-  -- 'navarasu/onedark.nvim',
-  'olimorris/onedarkpro.nvim',
+  { 'navarasu/onedark.nvim', priority = 1000 },
+  -- 'olimorris/onedarkpro.nvim',
 
   -- Fonts, icons, statusbars
   'nvim-lualine/lualine.nvim', -- Fancy status bar. Like Vim-Airline, but better

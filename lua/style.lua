@@ -5,9 +5,11 @@ vim.api.nvim_set_hl(0, 'NonText', { bg=0 })
 vim.opt.background = 'dark'
 
 -- Colorscheme Selection
-vim.g.my_scheme = "catppuccin-frappe"             -- Option for dark mode (default)
+-- vim.g.my_scheme = "material"
+-- vim.g.my_scheme = "onedark"             -- Option for dark mode (default)
+vim.g.my_scheme = "catppuccin-frappe"   -- Option for dark mode (default)
 vim.g.my_light_scheme = "catppuccin-latte" -- Option for light mode
-vim.g.transparent = true
+vim.g.transparent = false
 
 -- My custom color definitions
 local my_colors = {
@@ -49,6 +51,9 @@ local function setup_material()
         cursor_line = false, -- Enable darker background for the cursor line
         non_current_windows = false, -- Enable contrasted background for non-current windows
         filetypes = {}, -- Specify which filetypes get the contrasted (darker) background
+        high_visibility = {
+            darker = false
+        },
     },
 
     disable = {
@@ -97,7 +102,7 @@ end
 -- OneDark Color Scheme config (onedark.nvim)
 local function setup_onedark()
   require('onedark').setup({
-    style = 'dark',
+    style = 'cool',
     transparent = vim.g.transparent,
 
     -- toggle theme style ---
@@ -111,22 +116,24 @@ local function setup_onedark()
     },
 
     colors = {
-      comment_pink = my_colors.comment_pink,
+      comment = my_colors.comment_pink,
       lime_green = my_colors.lime_green,
+      mint = my_colors.mint,
+      purple = my_colors.purple_grey,
     },
 
     highlights = {
       -- Treesitter token types
-      ["@Comment"] = {fg = '$comment_pink'},
+      ["@Comment"] = {fg = '$comment'},
       -- Built-in token types
-      Comment = {fg = '$comment_pink'},
+      Comment = {fg = '$comment'},
       -- LSP token types
-      ["@lsp.type.comment"] = { fg = '$comment_pink' },
+      ["@lsp.type.comment"] = { fg = '$comment' },
       -- BarBar tabs
-      BufferCurrent = { fg = '$mint', bg = '$purple2' },
+      BufferCurrent = { fg = '$mint', bg = '$purple' },
     }
   })
-  -- require('onedark').load()
+  require('onedark').load()
 end
 
 -- OneDark Pro Color Scheme config (onedarkpro.nvim)
@@ -245,11 +252,11 @@ end
 
 if vim.g.my_scheme == "material" then
   setup_material()
-  vim.cmd('colorscheme material-palenight')
-  -- vim.cmd('colorscheme material-darker')
+  -- vim.cmd('colorscheme material-palenight')
+  vim.cmd('colorscheme material-darker')
 
 elseif string.find(vim.g.my_scheme, "onedark") then
-  setup_onedarkpro()
+  setup_onedark()
   vim.cmd('colorscheme ' .. vim.g.my_scheme)
 
 elseif vim.g.my_scheme == "nightfox" then
