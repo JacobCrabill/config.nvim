@@ -25,6 +25,19 @@ local is_blacklisted = function(dir)
   return false
 end
 
+local get_build_dir = function(dir)
+  local build_dir_options = {"build", ".fab/cmake-build"}
+  local project_dir = dir .. "/"
+  for _, bd in ipairs(build_dir_options) do
+    local build_dir = bd .. "/"
+    if vim.fn.isdirectory(project_dir .. build_dir) ~= 0 then
+      return build_dir
+    end
+  end
+  -- Fallback to just 'build'
+  return "build/"
+end
+
 local navic = require("nvim-navic")
 navic.setup {
     icons = {
@@ -98,7 +111,7 @@ if not is_blacklisted(cwd) then
   if cpp_lsp == 'clangd' then
     vim.lsp.config('clangd', {
       capabilities = capabilities,
-      cmd = { "clangd", "--background-index=0", "--header-insertion=never" },
+      cmd = { "clangd", "--compile-commands-dir=" .. get_build_dir(cwd), "--background-index=0", "--header-insertion=never" },
       on_attach = lsp_on_attach,
       settings = {
         Lua = {
@@ -113,9 +126,9 @@ if not is_blacklisted(cwd) then
       }
     })
   elseif cpp_lsp == 'ccls' then
-    -- TODO: Telescope picker for 'compilationDatabaseDirectory' to allow changing PX4 targets
+    -- TODO: Telescope picker for 'compilationDatabaseDirectory'
     if compile_commands_dir[cwd] == nil then
-      compile_commands_dir[cwd] = "./build/"
+      compile_commands_dir[cwd] = get_build_dir(cwd)
     end
     vim.lsp.config('ccls', {
       capabilities = capabilities,
