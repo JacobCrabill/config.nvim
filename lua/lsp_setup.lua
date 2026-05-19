@@ -5,6 +5,10 @@ require('lazydev').setup()
 local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
 local cpp_lsp = 'clangd' -- ccls or clangd
 
+-- Point to installed binaries
+vim.g.clangd_bin = '/home/jacob/.local/share/nvim/mason/bin/clangd'
+vim.g.ccls_bin = 'ccls'
+
 local cwd = vim.loop.cwd()
 local project_blacklist = {
   -- '/path/to/repo_root'
@@ -111,7 +115,7 @@ if not is_blacklisted(cwd) then
   if cpp_lsp == 'clangd' then
     vim.lsp.config('clangd', {
       capabilities = capabilities,
-      cmd = { "clangd", "--compile-commands-dir=" .. get_build_dir(cwd), "--background-index=0", "--header-insertion=never" },
+      cmd = { vim.g.clangd_bin, "--compile-commands-dir=" .. get_build_dir(cwd), "--background-index=0", "--header-insertion=never" },
       on_attach = lsp_on_attach,
       settings = {
         Lua = {
@@ -133,7 +137,7 @@ if not is_blacklisted(cwd) then
     vim.lsp.config('ccls', {
       capabilities = capabilities,
       on_attach = lsp_on_attach,
-      cmd = { "ccls" },
+      cmd = { vim.g.ccls_bin },
       init_options = {
         compilationDatabaseDirectory = compile_commands_dir[cwd]
       },

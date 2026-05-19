@@ -7,6 +7,7 @@ vim.g.fmt_enable_exclusions = true
 vim.g.autoformat_enabled = true
 vim.g.cue_fmt_on_save = true
 vim.g.markdown_formatter = 'zigdown'
+vim.g.clang_format_bin = '/home/jacob/.local/lib/python3.10/site-packages/clang_format/data/bin/clang-format'
 
 vim.g["clang_format#detect_style_file"] = 1
 vim.g["clang_format#enable_fallback_style"] = 0
@@ -70,7 +71,10 @@ vim.api.nvim_create_autocmd('BufWritePre', {
   group = 'AutoFmt',
   callback = function()
     if vim.g.autoformat_enabled then
-      vim.api.nvim_command([[:ClangFormat]])
+      local cmd = "silent write | silent :execute '! " .. vim.g.clang_format_bin .. " -i %' | edit! %"
+      vim.api.nvim_command(cmd)
+      -- This is tied to the system Python environment; doesn't work in nix dev shell :(
+      -- vim.api.nvim_command([[:ClangFormat]])
     end
   end
 })
