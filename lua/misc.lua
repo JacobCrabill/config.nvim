@@ -52,3 +52,25 @@ vim.api.nvim_create_user_command('HexEditClose', '%!xxd -r', {})
 -- Note that it has to be a keybind, not a command, due to operating in Visual mode
 -- vim.api.nvim_create_user_command('SnakeToCamel', [[:<C-U>s#\%V\(\%(\<\l\+\)\%(_\)\@=\)\|_\(\l\)\%V#\u\1\2#g<CR>]], {})
 vim.keymap.set("v", "<leader>n", [[:s#\%V\(\%(\<\l\+\)\%(_\)\@=\)\|_\(\l\)\%V#\u\1\2#g<CR>]], nil)
+
+-- Proper viewing of log files with ANSI escape codes
+local function CleanupHMTestLog()
+  vim.cmd([[
+  silent! :execute '%s/\[0m//g'
+  silent! :execute '%s/\[91m//g'
+  silent! :execute '%s/\[92m//g'
+  silent! :execute '%s/\[93m//g'
+  silent! :execute '%s/\[94m//g'
+  silent! :execute '%s/\[95m//g'
+  silent! :execute '%s/\[96m//g'
+  silent! :execute '%s/\[97m//g'
+  silent! :execute '%s/\[31m//g'
+  silent! :execute '%s/\[32m//g'
+  silent! :execute '%s/\[33m//g'
+  :StripWhitespace
+  ]])
+end
+vim.api.nvim_create_user_command('CleanupHMTestLog', CleanupHMTestLog, {})
+
+-- Use 'jq' to format the current buffer
+vim.api.nvim_create_user_command('JQ', '% !jq', {})
