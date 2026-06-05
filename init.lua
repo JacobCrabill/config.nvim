@@ -19,7 +19,7 @@ require('lazy').setup({
   { -- Telescope: Quickly search through files, integrate with LSP, etc.
       'nvim-telescope/telescope.nvim',
       event = 'VimEnter',
-      branch = '0.1.x',
+      branch = 'master',
       dependencies = {
         'nvim-lua/plenary.nvim',
         { -- If encountering errors, see telescope-fzf-native README for installation instructions
@@ -56,7 +56,7 @@ require('lazy').setup({
   -- Treesitter
   {
     'nvim-treesitter/nvim-treesitter',
-    tag = "v0.10.0",
+    branch = 'main',
     lazy = false,
     build = ':TSUpdate',
     -- dependencies = { 'nvim-treesitter/playground' },
@@ -174,6 +174,26 @@ require('lazy').setup({
   'jacobcrabill/zigdown',
   'jacobcrabill/hologram.nvim',
 
+  -- ShieldAI Plugins
+  {
+    dir = "/home/jacob/Codes/Misc/shieldai.nvim",
+    name = "shieldai.nvim",
+    main = "shieldai",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-telescope/telescope.nvim",
+      "MunifTanjim/nui.nvim",
+    },
+    opts = {
+      fabricator = { enabled = true },
+      saia = { enabled = true },
+      gitlab_review = {
+        enabled = true,
+        enable_auto_diffview = true,
+        include_reviewer_mrs = true,
+      },
+    },
+  },
   -- Animated Cursor
   -- NOTE: Seems to break Zigdown for some reason!
   -- {

@@ -41,7 +41,7 @@ require('telescope').setup{
       end,
     },
     find_files = {
-      file_ignore_patterns = { '.git' },
+      file_ignore_patterns = { '.git/' },
       hidden = show_hidden,
     },
   },
