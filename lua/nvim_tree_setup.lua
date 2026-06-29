@@ -115,6 +115,20 @@ require("nvim-tree").setup({
     enable = true,
     ignore = true,
   },
+  filesystem_watchers = {
+    enable = true,
+    debounce_delay = 50,
+    ignore_dirs = {
+      "/.ccls-cache",
+      "/.zig-cache",
+      "/.git",
+      "/.fab",
+      "/build",
+      "/ccache-tmp",
+      "/node_modules",
+      "/target",
+    },
+  },
   on_attach = nvim_tree_on_attach,
 })
 
