@@ -79,6 +79,21 @@ vim.api.nvim_create_autocmd('BufWritePre', {
   end
 })
 
+-- nvim-treesitter does not auto-enable highlighting on the main branch.
+-- FileType is the recommended hook, and it correctly covers headers that are
+-- detected as either C or C++.
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = { 'c', 'cpp' },
+  group = 'OnOpen',
+  callback = function(ev)
+    local ok = pcall(vim.treesitter.start, ev.buf)
+    if ok then
+      -- TS is enabled; disable nvim's built-in regex-based syntax highlighting
+      vim.bo[ev.buf].syntax = 'off'
+    end
+  end,
+})
+
 -- Python auto-formatter (Black)
 vim.api.nvim_create_autocmd('BufWritePre', {
   pattern = { '*.py' },

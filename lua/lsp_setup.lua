@@ -91,7 +91,6 @@ vim.lsp.enable({ cpp_lsp, 'zls', 'neocmake', 'pylsp', 'lua_ls', 'superhtml', 'cs
 
 -- Generic Language Server on_attach function
 local lsp_on_attach = function(client, bufnr)
-  -- vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
   vim.api.nvim_set_option_value('omnifunc', 'v:lua.vim.lsp.omnifunc', {
     scope = 'local',
     buf = bufnr,
@@ -103,9 +102,12 @@ local lsp_on_attach = function(client, bufnr)
   if client.server_capabilities.documentSymbolProvider then
       navic.attach(client, bufnr)
   end
-  -- Optional: Turn off semantic tokens overriding our current highlighting
-  -- See: https://github.com/neovim/neovim/pull/21100
-  -- client.server_capabilities.semanticTokensProvider = nil
+
+  -- For C/C++, prefer Tree-Sitter highlighting over semantic tokens.
+  if client.name == 'clangd' or client.name == 'ccls' then
+    vim.lsp.semantic_tokens.enable(false, { client_id = client.id })
+    client.server_capabilities.semanticTokensProvider = nil
+  end
 end
 
 --- C++ Language Server (clangd or ccls)
@@ -148,7 +150,19 @@ end
 -- Zig Language Server (ZLS)
 vim.lsp.config('zls', {
   capabilities = capabilities,
-  on_attach = lsp_on_attach,
+  on_attach = function(client, bufnr)
+    vim.api.nvim_set_option_value('omnifunc', 'v:lua.vim.lsp.omnifunc', {
+      scope = 'local',
+      buf = bufnr,
+    })
+    vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, nil)
+    vim.keymap.set('n', 'gd', vim.lsp.buf.definition, nil)
+    vim.keymap.set('n', 'gr', require('telescope.builtin').lsp_references, nil)
+    vim.keymap.set("n", "gl", vim.diagnostic.open_float, nil)
+    if client.server_capabilities.documentSymbolProvider then
+        navic.attach(client, bufnr)
+    end
+  end
 })
 
 -- Auto-fix minor issues on save (e.g. unused variables)
