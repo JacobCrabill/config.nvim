@@ -174,26 +174,26 @@ require('lazy').setup({
   'jacobcrabill/zigdown',
   'jacobcrabill/hologram.nvim',
 
-  -- ShieldAI Plugins
-  {
-    dir = "/home/jacob/Codes/Misc/shieldai.nvim",
-    name = "shieldai.nvim",
-    main = "shieldai",
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-      "nvim-telescope/telescope.nvim",
-      "MunifTanjim/nui.nvim",
-    },
-    opts = {
-      fabricator = { enabled = true },
-      saia = { enabled = true },
-      gitlab_review = {
-        enabled = true,
-        enable_auto_diffview = true,
-        include_reviewer_mrs = true,
-      },
-    },
-  },
+  -- -- ShieldAI Plugins
+  -- {
+  --   dir = "/home/jacob/Codes/Misc/shieldai.nvim",
+  --   name = "shieldai.nvim",
+  --   main = "shieldai",
+  --   dependencies = {
+  --     "nvim-lua/plenary.nvim",
+  --     "nvim-telescope/telescope.nvim",
+  --     "MunifTanjim/nui.nvim",
+  --   },
+  --   opts = {
+  --     fabricator = { enabled = true },
+  --     saia = { enabled = true },
+  --     gitlab_review = {
+  --       enabled = true,
+  --       enable_auto_diffview = true,
+  --       include_reviewer_mrs = true,
+  --     },
+  --   },
+  -- },
   -- Animated Cursor
   -- NOTE: Seems to break Zigdown for some reason!
   -- {

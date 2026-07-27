@@ -78,7 +78,7 @@ navic.setup {
     depth_limit_indicator = "..",
     lsp = {
       auto_attach = not is_blacklisted(cwd),
-      preference = { cpp_lsp, 'zls', 'neocmake', 'pylsp', 'lua_ls', 'superhtml', 'csharp_ls', 'kotlin_language_server' },
+      preference = { cpp_lsp, 'zigscient', 'neocmake', 'pylsp', 'lua_ls', 'superhtml', 'csharp_ls', 'kotlin_language_server' },
     },
 }
 
@@ -87,7 +87,7 @@ navic.setup {
 ----------------------------------------------------------------
 
 -- Enable all language servers by default
-vim.lsp.enable({ cpp_lsp, 'zls', 'neocmake', 'pylsp', 'lua_ls', 'superhtml', 'csharp_ls', 'kotlin_language_server' })
+vim.lsp.enable({ cpp_lsp, 'neocmake', 'pylsp', 'lua_ls', 'superhtml', 'csharp_ls', 'kotlin_language_server' })
 
 -- Generic Language Server on_attach function
 local lsp_on_attach = function(client, bufnr)
@@ -164,6 +164,27 @@ vim.lsp.config('zls', {
     end
   end
 })
+
+-- Zig Language Server (ZLS)
+vim.lsp.config('zigscient', {
+  capabilities = capabilities,
+  cmd = { 'zigscient' },
+  filetypes = { 'zig' },
+  on_attach = function(client, bufnr)
+    vim.api.nvim_set_option_value('omnifunc', 'v:lua.vim.lsp.omnifunc', {
+      scope = 'local',
+      buf = bufnr,
+    })
+    vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, nil)
+    vim.keymap.set('n', 'gd', vim.lsp.buf.definition, nil)
+    vim.keymap.set('n', 'gr', require('telescope.builtin').lsp_references, nil)
+    vim.keymap.set("n", "gl", vim.diagnostic.open_float, nil)
+    if client.server_capabilities.documentSymbolProvider then
+        navic.attach(client, bufnr)
+    end
+  end
+})
+vim.lsp.enable('zigscient')
 
 -- Auto-fix minor issues on save (e.g. unused variables)
 vim.api.nvim_create_autocmd('BufWritePre',{
