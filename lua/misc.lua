@@ -67,6 +67,14 @@ local function CleanupHMTestLog()
   silent! :execute '%s/\[31m//g'
   silent! :execute '%s/\[32m//g'
   silent! :execute '%s/\[33m//g'
+  silent! :execute '%s/\[0;m//g'
+  silent! :execute '%s/\[31;1m//g'
+  silent! :execute '%s/\[32;1m//g'
+  silent! :execute '%s/\[33;1m//g'
+  silent! :execute '%s/\[1;31m//g'
+  silent! :execute '%s/\[1;32m//g'
+  silent! :execute '%s/\[1;33m//g'
+  silent! :execute '%s/\[0K//g'
   :StripWhitespace
   ]])
 end

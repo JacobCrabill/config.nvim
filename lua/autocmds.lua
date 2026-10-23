@@ -83,7 +83,7 @@ vim.api.nvim_create_autocmd('BufWritePre', {
 -- FileType is the recommended hook, and it correctly covers headers that are
 -- detected as either C or C++.
 vim.api.nvim_create_autocmd('FileType', {
-  pattern = { 'c', 'cpp' },
+  pattern = { 'c', 'cpp', 'c++', 'python', 'markdown' },
   group = 'OnOpen',
   callback = function(ev)
     local ok = pcall(vim.treesitter.start, ev.buf)
@@ -203,3 +203,21 @@ vim.api.nvim_create_autocmd('VimEnter', {
     vim.cmd([[:FloatermHide]])
   end
 })
+
+vim.api.nvim_create_autocmd('User', { pattern = 'TSUpdate',
+callback = function()
+  require('nvim-treesitter.parsers').eos = {
+    install_info = {
+      path = '/home/jacob/Codes/Misc/tree-sitter-eos',
+      revision = 'HEAD', -- commit hash for revision to check out; HEAD if missing
+      tier = 2,
+      -- optional entries:
+      -- branch = 'develop', -- only needed if different from default branch
+      -- location = '', -- only needed if the parser is in subdirectory of a "monorepo"
+      generate = false, -- only needed if repo does not contain pre-generated `src/parser.c`
+      generate_from_json = false, -- only needed if repo does not contain `src/grammar.json` either
+      queries = 'queries', -- also install queries from given directory
+    },
+  }
+end})
+

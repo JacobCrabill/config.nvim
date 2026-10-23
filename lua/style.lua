@@ -8,7 +8,7 @@ vim.opt.background = 'dark'
 -- Go-to themes: "onedark", "material", "onenord", "catppuccin-frappe"
 vim.g.my_scheme = "material"               -- Option for dark mode (default)
 vim.g.my_light_scheme = "catppuccin-latte" -- Option for light mode
-vim.g.transparent = false
+vim.g.transparent = true
 
 -- My custom color definitions
 local my_colors = {

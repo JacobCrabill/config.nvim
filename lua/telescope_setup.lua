@@ -28,7 +28,8 @@ require('telescope').setup{
       file_ignore_patterns = {
         '%.html', '%.js', '%.min.js', '%.min.css',
         '%.jpeg', '%.jpg', '%.svg', '%.png', '%.jar',
-        '^.git', '^css/', '^cesium/', '^node_modules/'
+        '^.git', '^css/', '^cesium/', '^node_modules/',
+        '%.lock', '%.crt', '^docs/site/'
       },
       no_ignore = not use_gitignore,
       hidden = show_hidden,

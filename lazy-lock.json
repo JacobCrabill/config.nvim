@@ -58,5 +58,5 @@
   "vim-visual-multi": { "branch": "master", "commit": "a6975e7c1ee157615bbc80fc25e4392f71c344d4" },
   "vim-vsnip": { "branch": "master", "commit": "0a4b8419e44f47c57eec4c90df17567ad4b1b36e" },
   "zig.vim": { "branch": "master", "commit": "1a1112eec20e28c832a06ddb1d0060f6ce652372" },
-  "zigdown": { "branch": "main", "commit": "6a139f94b31c6bbfc0abca20b16f0948b29876e8" }
+  "zigdown": { "branch": "main", "commit": "de6b6429a8afd3daf43b7c9728e1da4852e27ced" }
 }

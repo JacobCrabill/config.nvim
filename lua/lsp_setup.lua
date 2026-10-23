@@ -30,7 +30,7 @@ local is_blacklisted = function(dir)
 end
 
 local get_build_dir = function(dir)
-  local build_dir_options = {"build", ".fab/cmake-build"}
+  local build_dir_options = {"build/Release", "build/Debug", "build", ".fab/cmake-build"}
   local project_dir = dir .. "/"
   for _, bd in ipairs(build_dir_options) do
     local build_dir = bd .. "/"
@@ -78,7 +78,7 @@ navic.setup {
     depth_limit_indicator = "..",
     lsp = {
       auto_attach = not is_blacklisted(cwd),
-      preference = { cpp_lsp, 'zigscient', 'neocmake', 'pylsp', 'lua_ls', 'superhtml', 'csharp_ls', 'kotlin_language_server' },
+      preference = { cpp_lsp, 'zigscient', 'neocmake', 'pylsp', 'lua_ls', 'superhtml', 'csharp_ls', 'kotlin_language_server', 'eos_ls' },
     },
 }
 
@@ -87,7 +87,7 @@ navic.setup {
 ----------------------------------------------------------------
 
 -- Enable all language servers by default
-vim.lsp.enable({ cpp_lsp, 'neocmake', 'pylsp', 'lua_ls', 'superhtml', 'csharp_ls', 'kotlin_language_server' })
+vim.lsp.enable({ cpp_lsp, 'zigscient', 'neocmake', 'pylsp', 'lua_ls', 'superhtml', 'csharp_ls', 'kotlin_language_server', 'eos_ls' })
 
 -- Generic Language Server on_attach function
 local lsp_on_attach = function(client, bufnr)
@@ -103,8 +103,16 @@ local lsp_on_attach = function(client, bufnr)
       navic.attach(client, bufnr)
   end
 
+  vim.diagnostic.config({
+    virtual_text = false,
+    virtual_lines = false, -- { current_line = true },
+    underline = true,
+    update_in_insert = false,
+    signs = false,
+  })
+
   -- For C/C++, prefer Tree-Sitter highlighting over semantic tokens.
-  if client.name == 'clangd' or client.name == 'ccls' then
+  if client.name == 'clangd' or client.name == 'ccls' or client.name == 'pylsp' then
     vim.lsp.semantic_tokens.enable(false, { client_id = client.id })
     client.server_capabilities.semanticTokensProvider = nil
   end
@@ -236,6 +244,16 @@ vim.lsp.enable('neocmake')
 vim.lsp.config('neocmake', {
   -- on_attach = lsp_on_attach,
 })
+
+-- EOS Language Server
+vim.lsp.config('eos_ls', {
+   cmd = { 'eos-ls' },
+   filetypes = { 'eos' },
+   root_markers = { 'pyproject.toml', '.git' },
+   single_file_support = true,
+   settings = {},
+})
+vim.lsp.enable('eos_ls')
 
 -- -- CMake LSP Setup
 -- if not lsp_configs.neocmake then

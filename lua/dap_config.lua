@@ -24,17 +24,18 @@ telescope.load_extension('dap')
 -- Set the paths to the available debuggers
 -- NOTE: Normal LLDB does NOT support DAP; instead, you must use 'lldb-vscode'
 -- local lldb_bin = vim.env.HOME .. '/.local/bin/lldb-vscode'
-local lldb_bin = vim.env.HOME .. '/.local/bin/LLVM-19.1.3-Linux-X64/bin/lldb'
+-- local lldb_bin = vim.env.HOME .. '/.local/bin/LLVM-19.1.3-Linux-X64/bin/lldb'
 
 -- NOTE: GDB MUST be built with DAP support
 -- To do so, build a gdb version >= 14.0 and make sure to configure as:
 --   $ ./configure --prefix=$HOME/.local/ --with-python=/usr/bin/python3
 -- Be sure to install libgmp-dev, libmpfr-dev, and python3-dev before running ./configure
-local gdb_bin = vim.env.HOME .. '/.local/bin/gdb'
+-- local gdb_bin = vim.env.HOME .. '/.local/bin/gdb'
+local gdb_bin = '/usr/bin/gdb'
 
 dap_utils.setup({
   gdb_path = gdb_bin,
-  lldb_path = lldb_bin,
+  lldb_path = nil,
   default_adapter = 'gdb'
 })
 
